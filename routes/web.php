@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\OrderController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ Route::resource('products', ProductController::class);
 
 Route::get('/account/login', [AccountController::class, 'login']);
 //Route::resource('account', AccountController::class);
+
+//Routes for Basket
+Route::get('/basket', [OrderController::class, 'index']);
 
 
 /*

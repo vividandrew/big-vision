@@ -27,6 +27,18 @@ class OrderLine extends Model
      */
     private int $OrderId;
 
+    //
+
+
+    public function allDB()
+    {
+        return [
+        $this->ProductId,
+        $this->Quantiy,
+        $this->OrderId,
+        ];
+    }
+
     // ===================================
     //        GETTERS AND SETTERS
     //=====================================
@@ -98,7 +110,7 @@ class OrderLine extends Model
     //=====================================
     public function __construct(array $attributes =
                                 [
-                                    'id' => -1,
+                                    //'id' => -1,
                                     'ProductId' => -1,
                                     'Quantity' => 0,
                                     'OrderId' => -1
