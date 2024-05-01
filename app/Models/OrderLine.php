@@ -26,6 +26,28 @@ class OrderLine extends Model
      * @var integer
      */
     private int $OrderId;
+    /**
+     * @var Product
+     */
+    public Product $product;
+
+    //
+    protected $fillable =
+        [
+            'id',
+            'ProductId',
+            'Quantity',
+            'OrderId',
+        ];
+
+    public function allDB()
+    {
+        return [
+            'ProductId' => $this->ProductId,
+            'Quantity' => $this->Quantity,
+            'OrderId' => $this->OrderId,
+        ];
+    }
 
     // ===================================
     //        GETTERS AND SETTERS
@@ -98,17 +120,18 @@ class OrderLine extends Model
     //=====================================
     public function __construct(array $attributes =
                                 [
-                                    'id' => -1,
+                                    //'id' => -1,
                                     'ProductId' => -1,
                                     'Quantity' => 0,
                                     'OrderId' => -1
                                 ])
     {
         //parent::__construct($attributes);
-        $this->Id           = $attributes['id'];
+        //$this->Id           = $attributes['id'];
         $this->ProductId    = $attributes['ProductId'];
         $this->Quantity     = $attributes['Quantity'];
         $this->OrderId      = $attributes['OrderId'];
+
     }
 
     // ===================================

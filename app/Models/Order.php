@@ -29,11 +29,35 @@ class Order extends Model
     /**
      * @var array<integer, OrderLine>
      */
-    private array $OrderLines;
+    public array $OrderLines;
     /**
      * @var string
      */
     private string $CustomerId;
+
+    // DATA BASE fillable
+    protected $fillable = [
+        'id',
+        'OrderDate',
+        'Status',
+        'CustomerId',
+    ];
+
+    // ===================================
+    //        GETTERS AND SETTERS
+    //=====================================
+    /**
+     * @return array
+     */
+    public function allDB() : array
+    {
+        return[
+            'OrderDate' => date('d/m/y H:i'),
+            'Status' => $this->Status,
+            'CustomerId' => $this->CustomerId,
+        ];
+    }
+
 
     // ===================================
     //        GETTERS AND SETTERS
@@ -122,15 +146,15 @@ class Order extends Model
     //        CONSTRUCTORS
     //=====================================
     public function __construct(array $attributes = [
-        'id' => "-1",
+        //'id' => "-1",
         'OrderDate' => new DateTime(),
         'Status' => "Test",
-        'OrderLines' => [new OrderLine(),],
+        'OrderLines' => [],
         'CustomerId' => "-1"
     ])
     {
         //parent::__construct($attributes);
-        $this->id           = $attributes['id'];
+        //$this->id           = $attributes['id'];
         $this->OrderDate    = $attributes['OrderDate'];
         $this->Status       = $attributes['Status'];
         $this->OrderLines   = $attributes['OrderLines'];

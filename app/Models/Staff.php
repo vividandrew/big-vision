@@ -40,7 +40,7 @@ class Staff extends User
     //        CONSTRUCTORS
     //=====================================
     public function __construct(array $attributes = [
-        'id' => "-1",
+        //'id' => "-1",
         'FullName' => "Andrew Warnock",
         'Email' => "30407681@bigvisiongames.co.uk",
         'ContactNo' => "01411231231234",

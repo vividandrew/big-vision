@@ -9,9 +9,9 @@ return new class extends Migration {
     {
         Schema::create('order_lines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id');
+            $table->foreignId('ProductId');
             $table->integer('Quantity');
-            $table->foreignId('order_id');
+            $table->foreignId('OrderId');
             $table->timestamps();
         });
     }

@@ -168,7 +168,7 @@ class Appointment extends Model
     //        CONSTRUCTORS
     //=====================================
     public function __construct(array $attributes = [
-        'id' => "-1",
+        //'id' => "-1",
         'DateOf' => new Date(),
         'Status' => "Test",
         'CustomerId' => "-1",
@@ -177,7 +177,7 @@ class Appointment extends Model
     ])
     {
         //parent::__construct($attributes);
-        $this->id                   = $attributes['id'];
+        //$this->id                   = $attributes['id'];
         $this->DateOf               = $attributes['DateOf'];
         $this->Status               = $attributes['Status'];
         $this->CustomerId           = $attributes['CustomerId'];

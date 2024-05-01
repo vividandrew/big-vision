@@ -235,7 +235,7 @@ class User extends Authenticatable
     //        CONSTRUCTORS
     //=====================================
     function __construct(array $attributes = [
-        'id' => "-1",
+        //'id' => "-1",
         'FullName' => "Andrew Warnock",
         'Email' => "30407681@bigvisiongames.co.uk",
         'ContactNo' => "",
@@ -251,7 +251,7 @@ class User extends Authenticatable
     ])
     {
         parent::__construct($attributes);
-        $this->id = $attributes["id"];
+        //$this->id = $attributes["id"];
         $this->FullName = $attributes["FullName"];
         $this->Email = $attributes["Email"];
         $this->ContactNo = $attributes["ContactNo"];
