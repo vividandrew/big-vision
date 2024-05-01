@@ -149,7 +149,7 @@ class Order extends Model
         //'id' => "-1",
         'OrderDate' => new DateTime(),
         'Status' => "Test",
-        'OrderLines' => [new OrderLine(),],
+        'OrderLines' => [],
         'CustomerId' => "-1"
     ])
     {

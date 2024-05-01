@@ -4,14 +4,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\HomeController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function(){
-    return view('home.index');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
 
 Route::resource('products', ProductController::class);
+
+//Route::get('/test/{test}', function(string $id){return 'Hello '.$id;});
+
+Route::get('/order/{id}', [OrderController::class, 'addProduct'])->name('order.product');
 
 Route::get('/account/login', [AccountController::class, 'login']);
 //Route::resource('account', AccountController::class);
@@ -34,5 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__.'/auth.php';
