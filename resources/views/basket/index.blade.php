@@ -19,4 +19,5 @@
             @endforeach
         @endif
     </table>
+    <a href="{{route('order.basket', $order->id)}}">Order</a>
 @endsection

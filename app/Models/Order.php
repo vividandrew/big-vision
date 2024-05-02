@@ -34,6 +34,10 @@ class Order extends Model
      * @var string
      */
     private string $CustomerId;
+    /**
+     * @var float
+     */
+    public float $Total;
 
     // DATA BASE fillable
     protected $fillable = [
@@ -42,6 +46,22 @@ class Order extends Model
         'Status',
         'CustomerId',
     ];
+
+    // ===================================
+    //        PRIVATE FUNCTIONS
+    //=====================================
+    /**
+     * @return int
+     */
+    private function calcTotal() : int
+    {
+        $total = 0.00;
+        foreach($this->OrderLines as $ol)
+        {
+            $total += $ol->Quantity * $ol->product->Price;
+        }
+        return $total;
+    }
 
     // ===================================
     //        GETTERS AND SETTERS
@@ -58,88 +78,12 @@ class Order extends Model
         ];
     }
 
-
-    // ===================================
-    //        GETTERS AND SETTERS
-    //=====================================
     /**
-     * @return string
+     * @return float
      */
-    public function getId(): string
+    public function getTotal(): float
     {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     */
-    public function setId(string $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getOrderDate(): DateTime
-    {
-        return $this->OrderDate;
-    }
-
-    /**
-     * @param DateTime $OrderDate
-     */
-    public function setOrderDate(DateTime $OrderDate): void
-    {
-        $this->OrderDate = $OrderDate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus(): string
-    {
-        return $this->Status;
-    }
-
-    /**
-     * @param string $Status
-     */
-    public function setStatus(string $Status): void
-    {
-        $this->Status = $Status;
-    }
-
-    /**
-     * @return OrderLine[]
-     */
-    public function getOrderLines(): array
-    {
-        return $this->OrderLines;
-    }
-
-    /**
-     * @param OrderLine[] $OrderLines
-     */
-    public function setOrderLines(array $OrderLines): void
-    {
-        $this->OrderLines = $OrderLines;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomerId(): string
-    {
-        return $this->CustomerId;
-    }
-
-    /**
-     * @param string $CustomerId
-     */
-    public function setCustomerId(string $CustomerId): void
-    {
-        $this->CustomerId = $CustomerId;
+        return $this->calcTotal();
     }
 
     // ===================================

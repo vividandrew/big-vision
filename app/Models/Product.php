@@ -51,7 +51,6 @@ class Product extends Model
      * @var string
      */
     private string $ImageUrl;
-
     protected $fillable = [
         'Name',
         'Price',

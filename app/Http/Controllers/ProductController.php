@@ -16,11 +16,13 @@ class ProductController extends Controller
 
     public function create()
     {
+        //TODO::Set Authentication check
         return view('product.create');
     }
 
     public function store(Request $request)
     {
+        //TODO::Set Authentication check
         $request->validate([
            'Name' => 'required',
            'Price' => 'required',
@@ -45,10 +47,45 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+        //TODO::Set Authentication check
+        $product = Product::whereId($id)->first();
+
+        return view('product.update')->with('product', $product);
     }
 
     public function update(Request $request, $id)
     {
+        //TODO::Set Authentication check
+
+        $request->validate([
+            'Name' => 'required',
+            'Price' => 'required',
+            'Stock' => 'required',
+            'Barcode' => 'nullable',
+            'Platform' => 'nullable',
+            'Discount' => 'nullable',
+            'ImageUrl' => 'nullable'
+        ]);
+
+
+        $product = Product::whereId($id)->first(); //grabs the product by id for comparison
+
+        $change = false; // variable to check if product was changed
+
+        // checks every variable to see if there is a difference, if so change it and set change variable to true
+        if($product->Name != $request['Name']           && $request['Name'] != null)        $product->Name = $request['Name'];      $change = true;
+        if($product->Price != $request['Price']         && $request['Price'] != null)       $product->Price = $request['Price'];     $change = true;
+        if($product->Stock != $request['Stock']         && $request['Stock'] != null)       $product->Stock = $request['Stock'];     $change = true;
+        if($product->Barcode != $request['Barcode'])                                        $product->Barcode = $request['Barcode'];   $change = true;
+        if($product->Platform != $request['Platform'])                                      $product->Platform = $request['Platform'];  $change = true;
+        if($product->Discount != $request['Discount'])                                      $product->Discount = $request['Discount'];  $change = true;
+        if($product->ImageUrl != $request['ImageUrl'])                                      $product->ImageUrl = $request['ImageUrl'];  $change = true;
+
+        //If change was made then send an update to the database, otherwise no update method is made
+        if($change) $product->update();
+
+        return redirect('/products/');
+
     }
 
     public function destroy($id)
