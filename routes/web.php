@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\HomeController;
+use \App\Http\Controllers\CheckoutController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,23 @@ Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('prod
 Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
 Route::get('/product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
+
+// [PAYPAL]
+Route::get('/order/checkout/pay-with-paypal/{id}', [CheckoutController::class, 'paypal'])->name('order.paypal');
+Route::post('/order/checkout/pay-with-paypal/{id}', [CheckoutController::class, 'paypalPost'])->name('order.paypal');
+Route::post('/paypal-ipn', [CheckoutController::class, 'paypalIPN']);
+
+//TODO:: make function to handle payments
+Route::get('/payment-success', [CheckoutController::class, 'paymentSuccess'])->name('payment-success');
+Route::get('/payment-cancelled', [CheckoutController::class, 'paymentCancelled'])->name('payment-cancelled');
+
+
 // [[ ORDER ROUTES ]]
 Route::get('/order/basket/{id}', [OrderController::class, 'createOrder'])->name('order.basket');
+Route::get('/order/checkout/{id}', [CheckoutController::class, 'Checkout'])->name('order.checkout');
+Route::post('/order/checkout/{id}', [CheckoutController::class, 'CheckoutPost'])->name('order.checkout.post');
+
+//wildcards that grab the rest must stay last
 Route::get('/order/{id}', [OrderController::class, 'addProduct'])->name('order.product');
 
 

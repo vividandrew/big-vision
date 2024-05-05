@@ -13,9 +13,6 @@ class Staff extends User
      * @var array<String, Appointment>
      */
     private array $Appointments;
-
-
-
     // ===================================
     //        GETTERS AND SETTERS
     //=====================================

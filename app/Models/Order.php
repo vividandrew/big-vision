@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Faker\Core\DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,9 +18,9 @@ class Order extends Model
      */
     private string $id;
     /**
-     * @var DateTime
+     * @var string
      */
-    private DateTime $OrderDate;
+    private string $OrderDate;
     /**
      * TODO: To Set Variables status is able to be
      *
@@ -72,7 +73,7 @@ class Order extends Model
     public function allDB() : array
     {
         return[
-            'OrderDate' => date('d/m/y H:i'),
+            'OrderDate' => Carbon::now()->format('Y-m-d H:i:s'),
             'Status' => $this->Status,
             'CustomerId' => $this->CustomerId,
         ];
@@ -91,7 +92,7 @@ class Order extends Model
     //=====================================
     public function __construct(array $attributes = [
         //'id' => "-1",
-        'OrderDate' => new DateTime(),
+        'OrderDate' => null,
         'Status' => "Test",
         'OrderLines' => [],
         'CustomerId' => "-1"
@@ -99,7 +100,7 @@ class Order extends Model
     {
         //parent::__construct($attributes);
         //$this->id           = $attributes['id'];
-        $this->OrderDate    = $attributes['OrderDate'];
+        $this->OrderDate    = Carbon::now()->format('Y-m-d H:i:s');
         $this->Status       = $attributes['Status'];
         $this->OrderLines   = $attributes['OrderLines'];
         $this->CustomerId   = $attributes['CustomerId'];

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Product;
+use Carbon\Carbon;
 use Faker\Core\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,17 +56,19 @@ class OrderController extends Controller
 
         //Grabs the most recent order for the user
         //This creates a new one to be used as a base basket for whenever the user returns
-        $order = Order::where('CustomerId', $user->id)->orderByDesc('created_at')->first();
+        $order = Order::where('CustomerId', $user->id)->where('Status', 'Basket')->first();
 
         //Creates a new order if there isn't already an order in place
         if($order == null){ $order = new Order([
             'id' => 0,
-            'OrderDate' => new DateTime(),
+            'OrderDate' => Carbon::now()->format('Y-m-d H:i:s'),
             'Status' => 'Basket',
             'OrderLines' => [],
             'CustomerId' => $user->id,
         ]);
             Order::create($order->allDB());
+            $order = Order::where('CustomerId', $user->id)->where('Status', 'Basket')->first();
+
         }else{
             //grabs all orderlines where the OrderId matches
             foreach(OrderLine::all()->where('OrderId', $order->id) as $ol)
@@ -98,7 +101,7 @@ class OrderController extends Controller
         if($order == null){
             $order = new Order([
                 'id' => 0,
-                'OrderDate' => new DateTime(),
+                'OrderDate' => Carbon::now()->format('Y-m-d H:i:s'),
                 'Status' => 'Basket',
                 'OrderLines' => [],
                 'CustomerId' => $user->id,
@@ -185,7 +188,7 @@ class OrderController extends Controller
 
         $order = new Order([
             'id' => 0,
-            'OrderDate' => new DateTime(),
+            'OrderDate' => Carbon::now()->format('Y-m-d H:i:s'),
             'Status' => 'Basket',
             'OrderLines' => [],
             'CustomerId' => $user->id,

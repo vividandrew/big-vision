@@ -68,12 +68,15 @@
                                 class="fa-solid fa-basket-shopping">
                                     <?php
                                         //This just gets the count of orderlines to display how many items are in the basket
-                                    echo App\Models\OrderLine::all()
-                                        ->where('OrderId',
-                                            App\Models\Order::where('CustomerId',  //Grab orders ID
-                                                Illuminate\Support\Facades\Auth::user()->id) //Grab users ID
-                                                ->orderByDesc('created_at')->first()->id)
-                                        ->count(); //Get count of all order lines
+                                    $order = App\Models\Order::where('CustomerId',  //Grab orders ID
+                                        Illuminate\Support\Facades\Auth::user()->id)->where('Status', 'Basket')->first();
+
+                                    if($order != null)
+                                    {
+                                        echo App\Models\OrderLine::all()
+                                            ->where('OrderId', $order->id)
+                                            ->count(); //Get count of all order lines
+                                    }
 
                                     ?>
                             </i></a></div>
