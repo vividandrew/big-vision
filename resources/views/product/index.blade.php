@@ -24,10 +24,6 @@
                                 <a class="bg-blue-500 rounded-2xl p-2 hover:bg-blue-300" href="{{route('product.show', $product->id)}}">
                                     View {{$product->Name}}
                                 </a>
-                                <!-- TODO:: Add authenticator for this section so only staff can view this -->
-                                <a class="bg-green-500 rounded-2xl p-2 hover:bg-green-300" href="{{route('product.edit', $product->id)}}">
-                                    edit
-                                </a>
                             </h3>
                         </div>
                     </div>

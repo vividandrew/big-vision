@@ -1,4 +1,4 @@
-@extends('shared.template')
+@extends('shared.admin-template')
 @section('pageheader', "Update a Product")
 @section('content')
     <form action="{{ route('product.update', $product->id) }}" method="POST">

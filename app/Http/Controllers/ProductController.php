@@ -35,7 +35,7 @@ class ProductController extends Controller
 
         Product::create($request->all());
 
-        return redirect()->route('products.index');//->with('success', 'Product Created successfully');
+        return redirect()->route('admin.products');//->with('success', 'Product Created successfully');
     }
 
     public function show($id)
@@ -84,7 +84,7 @@ class ProductController extends Controller
         //If change was made then send an update to the database, otherwise no update method is made
         if($change) $product->update();
 
-        return redirect('/products/');
+        return redirect()->route('admin.products');
 
     }
 

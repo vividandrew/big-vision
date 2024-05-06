@@ -1,7 +1,7 @@
-@extends('shared.template')
+@extends('shared.admin-template')
 @section('pageheader', "Create a Product")
 @section('content')
-<form action="{{ route('product.create') }}" method="POST">
+<form action="{{ route('product.create.post') }}" method="POST">
     @csrf
     <div class="grid md:grid-cols-2 sm:grid-cols-1 pb-3">
         <div class="md:pr-20">

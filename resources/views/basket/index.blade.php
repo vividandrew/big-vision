@@ -10,7 +10,6 @@
         @if($order->OrderLines != null)
             @foreach($order->OrderLines as $ol)
                 <tr>
-                    <td>{{$ol->ProductId}}</td>
                     <td>
                         {{$ol->product->Name}}
                     </td>

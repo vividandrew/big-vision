@@ -17,14 +17,22 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 //All routes expected for the product class
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
-Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
-Route::get('/product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
+// [[ PRODUCT ADMIN ROUTES ]]
+//CREATE
+Route::get('/admin/product/create', [ProductController::class, 'create'])->name('product.create');
+Route::post('/admin/product/create', [ProductController::class, 'store'])->name('product.create.post');
+
+//UPDATE
+Route::get('/admin/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+Route::post('/admin/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+
+//DELETE
+Route::get('/admin/product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 // [PAYPAL]
 Route::get('/order/checkout/pay-with-paypal/{id}', [CheckoutController::class, 'paypal'])->name('order.paypal');
-Route::post('/order/checkout/pay-with-paypal/{id}', [CheckoutController::class, 'paypalPost'])->name('order.paypal');
+Route::post('/order/checkout/pay-with-paypal/{id}', [CheckoutController::class, 'paypalPost'])->name('order.paypal.post');
 Route::post('/paypal-ipn', [CheckoutController::class, 'paypalIPN']);
 
 //TODO:: make function to handle payments
@@ -39,13 +47,6 @@ Route::post('/order/checkout/{id}', [CheckoutController::class, 'CheckoutPost'])
 
 //wildcards that grab the rest must stay last
 Route::get('/order/{id}', [OrderController::class, 'addProduct'])->name('order.product');
-
-
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
 
 // [[ ACCOUNT RELATED ROUTES ]]
 Route::get('/account/login', [AccountController::class, 'login']);
@@ -68,3 +69,4 @@ Route::get('/account/orders', [OrderController::class, 'index'])->name('account.
 
 // [[ ADMIN RELATED ROUTES ]]
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');

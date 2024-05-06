@@ -90,10 +90,12 @@ class OrderController extends Controller
     public function addProduct($id)
     {
         $user = Auth::user();
+        if($user == null) return redirect('/register');
 
-        //redirects the user to the homepage if attempting to add to basket without being logged in
-        //TODO::Send user to login page with possibility of returning to this product page
-        if($user == null){return redirect('/');}
+        $product = Product::whereId($id)->first();
+        if($product == null) return redirect('/products');
+
+        if($product->Stock < 1) return redirect('/products');
 
         //Grabs the most recent order(basket) for the user
         $order = Order::where('CustomerId', $user->id)->orderByDesc('created_at')->first();
@@ -162,6 +164,8 @@ class OrderController extends Controller
             }
         }
 
+        $product->Stock--;
+        $product->save();
 
         return redirect('/basket'); //Order page is used to add product, redirects user to basket after order is filled
     }

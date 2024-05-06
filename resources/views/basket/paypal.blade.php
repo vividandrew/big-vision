@@ -1,7 +1,7 @@
 @extends("shared.template")
 @section("pageheader", 'Checkout')
 @section("content")
-    <form action="{{ route('order.paypal', $orderid) }}" method="POST">
+    <form action="{{ route('order.paypal.post', $orderid) }}" method="POST">
         @csrf
         <div class="grid md:grid-cols-2 sm:grid-cols-1 pb-3">
                 <div class="mt-2">
