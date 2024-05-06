@@ -32,7 +32,6 @@ class OrderController extends Controller
         {
             foreach($orders as $order)
             {
-                $order->Total = 0.00;
                 foreach(OrderLine::all()->where('OrderId', $order->id) as $ol)
                 {
                     $ol->product = Product::whereId($ol->ProductId)->first(); //For Display purposes only, sets product to the OL class
@@ -203,35 +202,47 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        //
+        $order = Order::whereId($id)->first();
+
+        foreach(OrderLine::all()->where('OrderId', $order->id) as $ol)
+        {
+            $ol->product = Product::whereId($ol->ProductId)->first();
+            array_push($order->OrderLines, $ol);
+        }
+        return view('order.view')->with("order", $order);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Order $order)
+    public function edit($id)
     {
-        //
+        $order = Order::whereId($id)->first();
+        return view('order.edit')->with('order', $order);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+            'Status' => 'required',
+        ]);
+
+        $order = Order::whereId($id)->first();
+        if($order->Status != $request['Status'])
+        {
+            $order->Status = $request['Status'];
+            $order->save();
+        }
+
+        return redirect()->route('admin.orders');
     }
 
     /**

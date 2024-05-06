@@ -8,6 +8,7 @@
                     <td>{{$order->OrderDate}}</td>
                     <td style="padding-left:20px;">£{{$order->getTotal()}}</td>
                     <td style="padding-left:20px;">{{$order->Status}}</td>
+                    <td style="padding-left:20px;"><a href="{{route('order.show', $order->id)}}">View</a></td>
                 </tr>
                 @endforeach
             @else

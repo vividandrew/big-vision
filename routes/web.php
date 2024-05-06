@@ -45,6 +45,17 @@ Route::get('/order/basket/{id}', [OrderController::class, 'createOrder'])->name(
 Route::get('/order/checkout/{id}', [CheckoutController::class, 'Checkout'])->name('order.checkout');
 Route::post('/order/checkout/{id}', [CheckoutController::class, 'CheckoutPost'])->name('order.checkout.post');
 
+//View order
+Route::get('/order/view/{id}', [OrderController::class, 'show'])->name('order.show');
+
+//Edit order
+Route::get('/admin/order/edit/{id}',[OrderController::class, 'edit'])->name('order.edit');
+Route::post('/admin/order/edit/{id}',[OrderController::class, 'update'])->name('order.edit.post');
+
+//Delete order
+Route::get('/admin/order/destroy/{id}',[OrderController::class, 'destroy'])->name('order.destroy');
+Route::post('/admin/order/destroy/{id}',[OrderController::class, 'destroy'])->name('order.destroy.post');
+
 //wildcards that grab the rest must stay last
 Route::get('/order/{id}', [OrderController::class, 'addProduct'])->name('order.product');
 
@@ -70,3 +81,4 @@ Route::get('/account/orders', [OrderController::class, 'index'])->name('account.
 // [[ ADMIN RELATED ROUTES ]]
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
+Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');

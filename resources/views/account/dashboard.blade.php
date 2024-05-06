@@ -7,9 +7,9 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
-                <div class="text-white">
-                    <p><a href="{{route('account.orders')}}">View Orders</a></p>
-                </div>
+            </div>
+            <div>
+                <p><a href="{{route('account.orders')}}">View Orders</a></p>
             </div>
         </div>
     </div>
