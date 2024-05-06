@@ -2,17 +2,20 @@
 @section('pageheader', "Previous Orders")
 @section('content')
     <table>
-        <tr>
             @if($orders != null)
                 @foreach($orders as $order)
+                <tr>
                     <td>{{$order->OrderDate}}</td>
-                    <td style="padding-left:20px;">{{$order->getTotal()}}</td>
+                    <td style="padding-left:20px;">£{{$order->getTotal()}}</td>
                     <td style="padding-left:20px;">{{$order->Status}}</td>
+                </tr>
                 @endforeach
             @else
-                <td>NO ORDERS MADE</td>
-                <td></td>
+                <tr>
+                    <td>NO ORDERS MADE</td>
+                    <td></td>
+                    <td></td>
+                </tr>
             @endif
-        </tr>
     </table>
 @endsection

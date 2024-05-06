@@ -1,5 +1,6 @@
 <?php
 //Controllers
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AccountController;
@@ -63,3 +64,7 @@ require __DIR__.'/auth.php';
 // [[ ACCOUNT RELATED ACTIONS ]]
 Route::get('/basket', [OrderController::class, 'basket'])->name('account.basket');
 Route::get('/account/orders', [OrderController::class, 'index'])->name('account.orders');
+
+
+// [[ ADMIN RELATED ROUTES ]]
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');

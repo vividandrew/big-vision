@@ -32,6 +32,7 @@ class OrderController extends Controller
         {
             foreach($orders as $order)
             {
+                $order->Total = 0.00;
                 foreach(OrderLine::all()->where('OrderId', $order->id) as $ol)
                 {
                     $ol->product = Product::whereId($ol->ProductId)->first(); //For Display purposes only, sets product to the OL class
