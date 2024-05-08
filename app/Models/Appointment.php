@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Date;
@@ -35,34 +36,15 @@ class Appointment extends Model
      * @var array<integer, Product>
      */
     private array $ProductsInvolved;
-    /**
-     * @var string
-     */
-    private string $AddressLine1;
-    /**
-     * @var string
-     */
-    private string $AddressLine2;
-    /**
-     * @var string
-     */
-    private string $Town;
-    /**
-     * @var string
-     */
-    private string $PostCode;
-    /**
-     * @var string
-     */
-    private String $LoyaltyNo;
-    /**
-     * @var Order[]
-     */
-    private array $Orders;
-    /**
-     * @var Appointment[]
-     */
-    private array $Appointments;
+
+    protected $fillable =
+        [
+            'id',
+            'Status',
+            'DateOf',
+            'CustomerId',
+            'StaffId',
+        ];
 
 
     // ===================================
@@ -169,11 +151,10 @@ class Appointment extends Model
     //=====================================
     public function __construct(array $attributes = [
         //'id' => "-1",
-        'DateOf' => new Date(),
+        'DateOf' => Carbon::now()->format('Y-m-d H:i:s'),
         'Status' => "Test",
         'CustomerId' => "-1",
         'StaffId' => "-1",
-        'ProductsInvolved' => [new Product(),],
     ])
     {
         //parent::__construct($attributes);
@@ -182,9 +163,17 @@ class Appointment extends Model
         $this->Status               = $attributes['Status'];
         $this->CustomerId           = $attributes['CustomerId'];
         $this->StaffId              = $attributes['StaffId'];
-        $this->ProductsInvolved     = $attributes['ProductsInvolved'];
     }
 
+    public function allDB()
+    {
+        return[
+            'DateOf' => $this->DateOf,
+            'Status' => $this->Status,
+            'CustomerId' => $this->CustomerId,
+            'StaffId' => $this->StaffId
+        ];
+    }
 
     // ===================================
     //        GENERATED
