@@ -17,9 +17,9 @@ class Appointment extends Model
      */
     private string $id;
     /**
-     * @var Date
+     * @var string
      */
-    private Date $DateOf;
+    private string $DateOf;
     /**
      * @var string
      */
@@ -150,19 +150,21 @@ class Appointment extends Model
     //        CONSTRUCTORS
     //=====================================
     public function __construct(array $attributes = [
-        //'id' => "-1",
-        'DateOf' => Carbon::now()->format('Y-m-d H:i:s'),
+        'id' => "-1",
+        'DateOf' => null,
         'Status' => "Test",
         'CustomerId' => "-1",
         'StaffId' => "-1",
+        'ProductsInvolved' => [new Product(),],
     ])
     {
         //parent::__construct($attributes);
         //$this->id                   = $attributes['id'];
-        $this->DateOf               = $attributes['DateOf'];
+        $this->DateOf               = Carbon::now()->format('Y-m-d H:i:s');
         $this->Status               = $attributes['Status'];
         $this->CustomerId           = $attributes['CustomerId'];
         $this->StaffId              = $attributes['StaffId'];
+        $this->ProductsInvolved     = $attributes['ProductsInvolved'];
     }
 
     public function allDB()
