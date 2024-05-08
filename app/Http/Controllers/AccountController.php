@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class AccountController extends Controller
@@ -39,5 +41,30 @@ class AccountController extends Controller
         ]);
         $request->user()->fill($request->validated());
         return Redirect::route('profile.edit')->with('status', 'address-updated');
+    }
+
+    public function edit($id)
+    {
+        $user = User::whereId($id)->first();
+        if($user == null) return redirect()->view('admin.index');
+
+        return view('account.edit')->with('user', $user);
+    }
+
+    public function editPost(Request $request, $id)
+    {
+        $user = User::whereId($id)->first();
+        $request->validate([
+            'role' => 'required',
+        ]);
+
+        //This checks if there has been a change to role before sending request to database
+        if($user->role != $request['role'])
+        {
+            $user->role = $request['role'];
+            $user->save();
+        }
+
+        return redirect()->route('admin.index');
     }
 }

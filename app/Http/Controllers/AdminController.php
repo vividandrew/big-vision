@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class AdminController extends Controller
 {
@@ -49,5 +52,17 @@ class AdminController extends Controller
     function orderEditPost(Request $request, $id)
     {
 
+    }
+
+    function users()
+    {
+        $users = User::all();
+        return view('admin.users')->with('users', $users);
+    }
+
+    function appointments()
+    {
+        $appointments = Appointment::all();
+        return view('admin.appointments')->with('appointments', $appointments);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 //Controllers
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AccountController;
@@ -73,6 +74,17 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+//List users
+Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+
+//Edit User
+Route::get('/admin/user/edit/{id}', [AccountController::class, 'edit'])->name('user.edit');
+Route::post('/admin/user/edit/{id}', [AccountController::class, 'editPost'])->name('user.edit.post');
+
+// Delete User
+Route::get('/admin/user/destroy/{id}', function(){return "remove user";})->name('user.destroy');
+Route::post('/admin/user/destroy/{id}', function(){return "remove user post";})->name('user.destroy.post');
+
 // [[ ACCOUNT RELATED ACTIONS ]]
 Route::get('/basket', [OrderController::class, 'basket'])->name('account.basket');
 Route::get('/account/orders', [OrderController::class, 'index'])->name('account.orders');
@@ -82,3 +94,18 @@ Route::get('/account/orders', [OrderController::class, 'index'])->name('account.
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
 Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
+
+
+// [[ APPOINTMENT ROUTES ]]
+
+//User view appointments
+Route::get('/account/appointments',[AppointmentController::class, 'index'])->name('user.appointments');
+
+//Create appointment
+Route::get('/account/appointment/create', [AppointmentController::class, 'create'])->name('appointment.create');
+Route::post('/account/appointment/create', [AppointmentController::class, 'createPost'])->name('appointment.create.post');
+
+//Edit Appointment
+Route::get('/account/appointment/edit/{id}', [AppointmentController::class, 'edit'])->name('user.appointment.edit');
+Route::get('/account/appointment/edit/{id}', [AppointmentController::class, 'editPost'])->name('user.appointment.edit.post');
+

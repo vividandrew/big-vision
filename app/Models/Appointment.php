@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Date;
@@ -16,9 +17,9 @@ class Appointment extends Model
      */
     private string $id;
     /**
-     * @var Date
+     * @var string
      */
-    private Date $DateOf;
+    private string $DateOf;
     /**
      * @var string
      */
@@ -35,34 +36,15 @@ class Appointment extends Model
      * @var array<integer, Product>
      */
     private array $ProductsInvolved;
-    /**
-     * @var string
-     */
-    private string $AddressLine1;
-    /**
-     * @var string
-     */
-    private string $AddressLine2;
-    /**
-     * @var string
-     */
-    private string $Town;
-    /**
-     * @var string
-     */
-    private string $PostCode;
-    /**
-     * @var string
-     */
-    private String $LoyaltyNo;
-    /**
-     * @var Order[]
-     */
-    private array $Orders;
-    /**
-     * @var Appointment[]
-     */
-    private array $Appointments;
+
+    protected $fillable =
+        [
+            'id',
+            'Status',
+            'DateOf',
+            'CustomerId',
+            'StaffId',
+        ];
 
 
     // ===================================
@@ -168,8 +150,8 @@ class Appointment extends Model
     //        CONSTRUCTORS
     //=====================================
     public function __construct(array $attributes = [
-        //'id' => "-1",
-        'DateOf' => new Date(),
+        'id' => "-1",
+        'DateOf' => null,
         'Status' => "Test",
         'CustomerId' => "-1",
         'StaffId' => "-1",
@@ -178,13 +160,22 @@ class Appointment extends Model
     {
         //parent::__construct($attributes);
         //$this->id                   = $attributes['id'];
-        $this->DateOf               = $attributes['DateOf'];
+        $this->DateOf               = Carbon::now()->format('Y-m-d H:i:s');
         $this->Status               = $attributes['Status'];
         $this->CustomerId           = $attributes['CustomerId'];
         $this->StaffId              = $attributes['StaffId'];
         $this->ProductsInvolved     = $attributes['ProductsInvolved'];
     }
 
+    public function allDB()
+    {
+        return[
+            'DateOf' => $this->DateOf,
+            'Status' => $this->Status,
+            'CustomerId' => $this->CustomerId,
+            'StaffId' => $this->StaffId
+        ];
+    }
 
     // ===================================
     //        GENERATED
