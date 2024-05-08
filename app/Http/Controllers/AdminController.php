@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -49,5 +50,11 @@ class AdminController extends Controller
     function orderEditPost(Request $request, $id)
     {
 
+    }
+
+    function users()
+    {
+        $users = User::all();
+        return view('admin.users')->with('users', $users);
     }
 }

@@ -73,6 +73,17 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+//List users
+Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+
+//Edit User
+Route::get('/admin/user/edit/{id}', [AccountController::class, 'edit'])->name('user.edit');
+Route::post('/admin/user/edit/{id}', [AccountController::class, 'editPost'])->name('user.edit.post');
+
+// Delete User
+Route::get('/admin/user/destroy/{id}', function(){return "remove user";})->name('user.destroy');
+Route::post('/admin/user/destroy/{id}', function(){return "remove user post";})->name('user.destroy.post');
+
 // [[ ACCOUNT RELATED ACTIONS ]]
 Route::get('/basket', [OrderController::class, 'basket'])->name('account.basket');
 Route::get('/account/orders', [OrderController::class, 'index'])->name('account.orders');
