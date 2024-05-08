@@ -18,7 +18,7 @@
         @foreach($users as $user)
             <tr>
                 <td>{{$user->id}}</td>
-                <td>{{$user->Name}}</td>
+                <td>{{$user->name}}</td>
                 <td>{{$user->role}}</td>
                 <td>
                     <a href="{{route("user.edit", $user->id)}}"> Edit</a>

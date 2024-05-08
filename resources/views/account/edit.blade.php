@@ -8,7 +8,7 @@
                 <label for="id" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">User's ID: {{$user->id}}</label>
             </div>
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                <label for="Name" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">User's Name: {{$user->Name}}</label>
+                <label for="Name" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">User's Name: {{$user->name}}</label>
             </div>
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                 <label for="role" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">User's role:</label>
