@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Product;
+use App\Models\Visionary;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
@@ -175,6 +176,19 @@ class CheckoutController extends Controller
         //TODO:: testing to make sure this grabs the correct order
         $order = Order::where('CustomerId', $user->id)->where('Status', 'payment-processing')->first();
         if($order == null) return redirect('/');
+
+        foreach(OrderLine::all()->where('OrderId', $order->id) as $ol)
+        {
+            $ol->product = Product::whereId($ol->ProductId)->first();
+            array_push($order->OrderLines, $ol);
+        }
+
+        $loyalty  = Visionary::where('CustomerId', Auth::user()->id)->first();
+        $loyalty->LoyaltyPoints -= $order->PointsSpent;
+
+        $loyalty->LoyaltyPoints += round($order->getTotal());
+
+        $loyalty->save();
 
         $order->Status = 'Ordered';
         $order->save();

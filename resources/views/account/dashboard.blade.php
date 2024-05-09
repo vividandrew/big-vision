@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 @extends('shared.template')
 @section('pageheader', "Dashboard")
 @section('content')
@@ -12,6 +13,12 @@
                 <p>
                     <a href="{{route('account.orders')}}">View Orders</a>
                     <a href="{{route('appointment.create')}}">Make Trade in Appointment</a>
+                    @if(\App\Models\Visionary::where('CustomerId', Auth::user()->id)->first() == null)
+                    <form id="registerLoyalty" method="POST" action="{{route('user.register.loyalty')}}" >
+                        @csrf
+                        <a onclick="event.preventDefault();document.getElementById('registerLoyalty').submit()" href="{{route('user.register.loyalty')}}">Register to become a visionary!</a>
+                    </form>
+                    @endif
                 </p>
 
             </div>

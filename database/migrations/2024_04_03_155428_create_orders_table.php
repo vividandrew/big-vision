@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->dateTime('OrderDate');
             $table->string('Status');
             $table->foreignId('CustomerId');
+            $table->foreignId('PointsSpent');
             $table->timestamps();
         });
     }

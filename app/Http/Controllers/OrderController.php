@@ -65,6 +65,7 @@ class OrderController extends Controller
             'Status' => 'Basket',
             'OrderLines' => [],
             'CustomerId' => $user->id,
+            'PointsSpent' => 0
         ]);
             Order::create($order->allDB());
             $order = Order::where('CustomerId', $user->id)->where('Status', 'Basket')->first();
@@ -107,6 +108,7 @@ class OrderController extends Controller
                 'Status' => 'Basket',
                 'OrderLines' => [],
                 'CustomerId' => $user->id,
+                'PointsSpent' => 0,
             ]);
             Order::create($order->allDB()); //this creates a database entry, but in this case is used to set ID
             $order = Order::where('CustomerId', $user->id)->orderByDesc('created_at')->first(); //resets order to have correct id
@@ -116,7 +118,7 @@ class OrderController extends Controller
                 'id' => -1,
                 'ProductId' => $id,
                 'Quantity' => 1,
-                'OrderId' => $order->id
+                'OrderId' => $order->id,
             ]);
 
             OrderLine::create($orderLine->allDB()); //same as the order this creates an Orderlines for the purposes of having the correct ID
@@ -196,6 +198,7 @@ class OrderController extends Controller
             'Status' => 'Basket',
             'OrderLines' => [],
             'CustomerId' => $user->id,
+            'PointsSpent' => 0,
         ]);
         Order::create($order->allDB());
         return redirect('/');
@@ -251,5 +254,14 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function applyPoints(Request $request, $id)
+    {
+        $order = Order::whereId($id)->first();
+        $order->PointsSpent = $request['PointsSpent'];
+        $order->save();
+
+        return redirect()->route('account.basket');
     }
 }

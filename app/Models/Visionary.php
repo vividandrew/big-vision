@@ -10,59 +10,25 @@ class Visionary extends Model
     // ===================================
     //        CLASS VARIABLES
     //=====================================
-    private string $loyaltyNo;
+    private string $LoyaltyNo;
     private int $LoyaltyPoints;
     private string $CustomerId;
-    // ===================================
-    //        GETTERS AND SETTERS
-    //=====================================
-    /**
-     * @return string
-     */
-    public function getLoyaltyNo(): string
+
+    protected $fillable = [
+        'LoyaltyNo',
+        'LoyaltyPoints',
+        'CustomerId',
+    ];
+
+    public function allDb()
     {
-        return $this->loyaltyNo;
+        return [
+            'LoyaltyNo' => $this->LoyaltyNo,
+            'LoyaltyPoints' => $this->LoyaltyPoints,
+            'CustomerId' => $this->CustomerId,
+        ];
     }
 
-    /**
-     * @param string $loyaltyNo
-     */
-    public function setLoyaltyNo(string $loyaltyNo): void
-    {
-        $this->loyaltyNo = $loyaltyNo;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLoyaltyPoints(): int
-    {
-        return $this->LoyaltyPoints;
-    }
-
-    /**
-     * @param int $LoyaltyPoints
-     */
-    public function setLoyaltyPoints(int $LoyaltyPoints): void
-    {
-        $this->LoyaltyPoints = $LoyaltyPoints;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomerId(): string
-    {
-        return $this->CustomerId;
-    }
-
-    /**
-     * @param string $CustomerId
-     */
-    public function setCustomerId(string $CustomerId): void
-    {
-        $this->CustomerId = $CustomerId;
-    }
     // ===================================
     //        CONSTRUCTORS
     //=====================================
@@ -72,8 +38,11 @@ class Visionary extends Model
         'CustomerId' => "-1"
     ])
     {
-        parent::__construct($attributes);
-        $this->loyaltyNo        = $attributes['loyaltyNo'];
+        $this->fillable['LoyaltyNo']        = $attributes['LoyaltyNo'];
+        $this->fillable['LoyaltyPoints']    = $attributes['LoyaltyPoints'];
+        $this->fillable['CustomerId']       = $attributes['CustomerId'];
+
+        $this->LoyaltyNo        = $attributes['LoyaltyNo'];
         $this->LoyaltyPoints    = $attributes['LoyaltyPoints'];
         $this->CustomerId       = $attributes['CustomerId'];
     }

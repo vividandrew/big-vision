@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\User;
+use App\Models\Visionary;
+
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class AccountController extends Controller
@@ -66,5 +71,18 @@ class AccountController extends Controller
         }
 
         return redirect()->route('admin.index');
+    }
+
+    public function registerLoyalty()
+    {
+        $visionary = new Visionary([
+            'LoyaltyNo' => Auth::user()->name.Carbon::now(),
+            'LoyaltyPoints' => 0,
+            'CustomerId' => Auth::user()->id,
+        ]);
+
+        $visionary::create($visionary->allDb());
+
+        return redirect()->route('home.index');
     }
 }

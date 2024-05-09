@@ -42,9 +42,10 @@ Route::get('/payment-cancelled', [CheckoutController::class, 'paymentCancelled']
 
 
 // [[ ORDER ROUTES ]]
-Route::get('/order/basket/{id}', [OrderController::class, 'createOrder'])->name('order.basket');
+//Route::get('/order/basket/{id}', [OrderController::class, 'createOrder'])->name('order.basket');
 Route::get('/order/checkout/{id}', [CheckoutController::class, 'Checkout'])->name('order.checkout');
 Route::post('/order/checkout/{id}', [CheckoutController::class, 'CheckoutPost'])->name('order.checkout.post');
+
 
 //View order
 Route::get('/order/view/{id}', [OrderController::class, 'show'])->name('order.show');
@@ -87,6 +88,7 @@ Route::post('/admin/user/destroy/{id}', function(){return "remove user post";})-
 
 // [[ ACCOUNT RELATED ACTIONS ]]
 Route::get('/basket', [OrderController::class, 'basket'])->name('account.basket');
+Route::post('/basket/{id}', [OrderController::class, 'applyPoints'])->name('order.applyPoints');
 Route::get('/account/orders', [OrderController::class, 'index'])->name('account.orders');
 
 
@@ -109,3 +111,5 @@ Route::post('/admin/appointment/edit/{id}', [AppointmentController::class, 'edit
 //User view appointments
 Route::get('/account/appointment/{id}',[AppointmentController::class, 'show'])->name('user.appointment');
 
+// [[ VISIONARY LOYALTY POINTS ]]
+Route::post('/account/registerLoyalty', [AccountController::class, 'registerLoyalty'])->name('user.register.loyalty');

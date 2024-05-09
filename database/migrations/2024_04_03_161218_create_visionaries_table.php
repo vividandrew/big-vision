@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('LoyaltyNo');
             $table->unsignedInteger('LoyaltyPoints');
-            $table->foreignId('user_id');
+            $table->foreignId('CustomerId');
             $table->timestamps();
         });
     }

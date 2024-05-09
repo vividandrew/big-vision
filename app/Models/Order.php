@@ -46,7 +46,9 @@ class Order extends Model
         'OrderDate',
         'Status',
         'CustomerId',
+        'PointsSpent',
     ];
+
 
     // ===================================
     //        PRIVATE FUNCTIONS
@@ -76,6 +78,7 @@ class Order extends Model
             'OrderDate' => Carbon::now()->format('Y-m-d H:i:s'),
             'Status' => $this->Status,
             'CustomerId' => $this->CustomerId,
+            'PointsSpent' => $this->fillable['PointsSpent'],
         ];
     }
 
@@ -100,6 +103,11 @@ class Order extends Model
     {
         //parent::__construct($attributes);
         //$this->id           = $attributes['id'];
+        $this->fillable['OrderDate']    = Carbon::now()->format('Y-m-d H:i:s');
+        $this->fillable['Status']       = $attributes['Status'];
+        $this->fillable['CustomerId']   = $attributes['CustomerId'];
+        $this->fillable['PointsSpent']  = 0;
+
         $this->OrderDate    = Carbon::now()->format('Y-m-d H:i:s');
         $this->Status       = $attributes['Status'];
         $this->OrderLines   = $attributes['OrderLines'];
