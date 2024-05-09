@@ -87,7 +87,7 @@ class Order extends Model
      */
     public function getTotal(): float
     {
-        return $this->calcTotal();
+        return $this->calcTotal() - ($this->PointsSpent * 0.1);
     }
 
     // ===================================
