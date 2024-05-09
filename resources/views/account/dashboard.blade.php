@@ -9,7 +9,11 @@
                 </div>
             </div>
             <div>
-                <p><a href="{{route('account.orders')}}">View Orders</a></p>
+                <p>
+                    <a href="{{route('account.orders')}}">View Orders</a>
+                    <a href="{{route('appointment.create')}}">Make Trade in Appointment</a>
+                </p>
+
             </div>
         </div>
     </div>

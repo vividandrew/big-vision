@@ -94,18 +94,18 @@ Route::get('/account/orders', [OrderController::class, 'index'])->name('account.
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
 Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
+Route::get('/account/appointments',[AppointmentController::class, 'index'])->name('admin.appointments');
 
 
 // [[ APPOINTMENT ROUTES ]]
-
-//User view appointments
-Route::get('/account/appointments',[AppointmentController::class, 'index'])->name('user.appointments');
-
 //Create appointment
 Route::get('/account/appointment/create', [AppointmentController::class, 'create'])->name('appointment.create');
 Route::post('/account/appointment/create', [AppointmentController::class, 'createPost'])->name('appointment.create.post');
 
 //Edit Appointment
-Route::get('/account/appointment/edit/{id}', [AppointmentController::class, 'edit'])->name('user.appointment.edit');
-Route::get('/account/appointment/edit/{id}', [AppointmentController::class, 'editPost'])->name('user.appointment.edit.post');
+Route::get('/admin/appointment/edit/{id}', [AppointmentController::class, 'edit'])->name('appointment.edit');
+Route::post('/admin/appointment/edit/{id}', [AppointmentController::class, 'editPost'])->name('appointment.edit.post');
+
+//User view appointments
+Route::get('/account/appointment/{id}',[AppointmentController::class, 'show'])->name('user.appointment');
 

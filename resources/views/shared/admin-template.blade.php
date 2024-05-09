@@ -30,6 +30,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{route('admin.appointments')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <span class="flex-1 ms-3 whitespace-nowrap">View Appointments</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{route('admin.orders')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <span class="flex-1 ms-3 whitespace-nowrap">View Orders</span>
                 </a>

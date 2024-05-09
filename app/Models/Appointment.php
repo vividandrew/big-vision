@@ -46,105 +46,8 @@ class Appointment extends Model
             'StaffId',
         ];
 
-
-    // ===================================
-    //        GETTERS AND SETTERS
-    //=====================================
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     */
-    public function setId(string $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return Date
-     */
-    public function getDateOf(): Date
-    {
-        return $this->DateOf;
-    }
-
-    /**
-     * @param Date $DateOf
-     */
-    public function setDateOf(Date $DateOf): void
-    {
-        $this->DateOf = $DateOf;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus(): string
-    {
-        return $this->Status;
-    }
-
-    /**
-     * @param string $Status
-     */
-    public function setStatus(string $Status): void
-    {
-        $this->Status = $Status;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomerId(): string
-    {
-        return $this->CustomerId;
-    }
-
-    /**
-     * @param string $CustomerId
-     */
-    public function setCustomerId(string $CustomerId): void
-    {
-        $this->CustomerId = $CustomerId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStaffId(): string
-    {
-        return $this->StaffId;
-    }
-
-    /**
-     * @param string $StaffId
-     */
-    public function setStaffId(string $StaffId): void
-    {
-        $this->StaffId = $StaffId;
-    }
-
-    /**
-     * @return Product[]
-     */
-    public function getProductsInvolved(): array
-    {
-        return $this->ProductsInvolved;
-    }
-
-    /**
-     * @param Product[] $ProductsInvolved
-     */
-    public function setProductsInvolved(array $ProductsInvolved): void
-    {
-        $this->ProductsInvolved = $ProductsInvolved;
-    }
+    private $CustomerName;
+    private $StaffName;
 
     // ===================================
     //        CONSTRUCTORS
@@ -155,7 +58,7 @@ class Appointment extends Model
         'Status' => "Test",
         'CustomerId' => "-1",
         'StaffId' => "-1",
-        'ProductsInvolved' => [new Product(),],
+        //'ProductsInvolved' => [new Product(),],
     ])
     {
         //parent::__construct($attributes);
@@ -164,7 +67,7 @@ class Appointment extends Model
         $this->Status               = $attributes['Status'];
         $this->CustomerId           = $attributes['CustomerId'];
         $this->StaffId              = $attributes['StaffId'];
-        $this->ProductsInvolved     = $attributes['ProductsInvolved'];
+        //$this->ProductsInvolved     = $attributes['ProductsInvolved'];
     }
 
     public function allDB()
