@@ -91,7 +91,8 @@ Route::post('/admin/user/destroy/{id}', function(){return "remove user post";})-
 
 // [[ ACCOUNT RELATED ACTIONS ]]
 Route::get('/basket', [OrderController::class, 'basket'])->name('account.basket');
-Route::post('/basket/{id}', [OrderController::class, 'applyPoints'])->name('order.applyPoints');
+Route::get('/basket/remove-product/{id}', [OrderController::class, 'removeProduct'])->name('order.removeProduct');
+Route::post('/basket/apply-points/{id}', [OrderController::class, 'applyPoints'])->name('order.applyPoints');
 Route::get('/account/orders', [OrderController::class, 'index'])->name('account.orders');
 
 

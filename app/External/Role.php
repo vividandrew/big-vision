@@ -42,6 +42,11 @@ class Role
         $this->id = $this->__GetRoleID__($role);
     }
 
+    public function setRoleById($id)
+    {
+        $this->id = $id;
+    }
+
     public function getRoles()
     {
         return $this->roles;

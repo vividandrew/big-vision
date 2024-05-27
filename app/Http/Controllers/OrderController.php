@@ -176,6 +176,22 @@ class OrderController extends Controller
         return redirect('/basket'); //Order page is used to add product, redirects user to basket after order is filled
     }
 
+    /*
+     *  Remove product from order
+     */
+    public function removeProduct($id)
+    {
+        $orderLine = OrderLine::whereId($id)->first();
+
+        $product = Product::whereId($orderLine->ProductId)->first();
+        $product->Stock += $orderLine->Quantity; //Adds the quantity back to existing stock
+
+        //Final update of the product
+        $orderLine->delete();
+        $product->save();
+        return redirect()->route('account.basket');
+    }
+
     /**
      * Create order status
      */

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\External\Role;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Visionary;
@@ -61,8 +62,9 @@ class AccountController extends Controller
     {
         $user = User::whereId($id)->first();
         if($user == null) return redirect()->view('admin.index');
+        $Roles = (new Role)->GetRoles();
 
-        return view('account.edit')->with('user', $user);
+        return view('account.edit')->with('user', $user)->with('Roles', $Roles);
     }
 
     public function editPost(Request $request, $id)
@@ -72,10 +74,14 @@ class AccountController extends Controller
             'role' => 'required',
         ]);
 
+        $role = new Role();
+
+        $role->setRoleById($request['role']);
+
         //This checks if there has been a change to role before sending request to database
-        if($user->role != $request['role'])
+        if($user->role != $role->getRole())
         {
-            $user->role = $request['role'];
+            $user->role = $role->getRole();
             $user->save();
         }
 
