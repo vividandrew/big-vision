@@ -36,7 +36,7 @@ Route::get('/order/checkout/pay-with-paypal/{id}', [CheckoutController::class, '
 Route::post('/order/checkout/pay-with-paypal/{id}', [CheckoutController::class, 'paypalPost'])->name('order.paypal.post');
 Route::post('/paypal-ipn', [CheckoutController::class, 'paypalIPN']);
 
-//TODO:: make function to handle payments
+
 Route::get('/payment-success', [CheckoutController::class, 'paymentSuccess'])->name('payment-success');
 Route::get('/payment-cancelled', [CheckoutController::class, 'paymentCancelled'])->name('payment-cancelled');
 
@@ -73,6 +73,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//Personal made update method
+/*
+Route::get('/profile/update', [ProfileController::class, 'personalEdit'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'personalUpdate'])->name('profile.edit.post');
+*/
 require __DIR__.'/auth.php';
 
 //List users

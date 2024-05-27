@@ -79,68 +79,68 @@ class User extends Authenticatable
     /**
      * @return string
      */
-    public function getID(): string{ return $this->id; }
+    public function getID(): string{ return $this->fillable['id']; }
 
     /**
      * @param string $id
      */
-    public function setID(string $id): void{$this->id = $id;}
+    public function setID(string $id): void{$this->fillable['id'] = $id;}
 
     /**
      * @return string
      */
-    public function getFullName(): string{return $this->FullName;}
+    public function getFullName(): string{return $this->fillable['name'];}
     /**
      * @param string $FullName
      */
-    public function setFullName(string $FullName): void { $this->FullName = $FullName;}
+    public function setFullName(string $FullName): void { $this->fillable['name'] = $FullName;}
 
     /**
      * @return string
      */
-    public function getEmail(): string{return $this->Email;}
+    public function getEmail(): string{return $this->fillable['email'];}
 
     /**
      * @param string $Email
      */
-    public function setEmail(string $Email): void{$this->Email = $Email;}
+    public function setEmail(string $Email): void{$this->fillable['email'] = $Email;}
 
     /**
      * @return  string
      */
-    public function getContactNo(): string{ return $this->ContactNo; }
+    public function getContactNo(): string{ return $this->fillable['ContactNo']; }
 
     /**
      * @param string $ContactNo
      */
-    public function setContactNo(string $ContactNo): void{ $this->ContactNo = $ContactNo; }
+    public function setContactNo(string $ContactNo): void{ $this->fillable['ContactNo'] = $ContactNo; }
 
     /**
      * @return  string
      */
-    public function getPassword(): string { return $this->Password; }
+    public function getPassword(): string { return $this->fillable['password']; }
 
     /**
      * @param string $Password
      */
-    public function setPassword(string $Password): void { $this->Password = $Password; }
+    public function setPassword(string $Password): void { $this->fillable['password'] = $Password; }
 
     /**
      * @return string
      */
-    public function getRole(): string { return $this->Role; }
+    public function getRole(): string { return $this->fillable['role']; }
 
     /**
      * @param string $Role
      */
-    public function setRole(string $Role): void { $this->Role = $Role; }
+    public function setRole(string $Role): void { $this->fillable['role'] = $Role; }
 
     /**
      * @return string
      */
     public function getAddressLine1(): string
     {
-        return $this->AddressLine1;
+        return $this->fillable['AddressLine1'];
     }
 
     /**
@@ -148,7 +148,7 @@ class User extends Authenticatable
      */
     public function setAddressLine1(string $AddressLine1): void
     {
-        $this->AddressLine1 = $AddressLine1;
+        $this->fillable['AddressLine1'] = $AddressLine1;
     }
 
     /**
@@ -156,7 +156,7 @@ class User extends Authenticatable
      */
     public function getAddressLine2(): string
     {
-        return $this->AddressLine2;
+        return $this->fillable['AddressLine2'];
     }
 
     /**
@@ -164,7 +164,7 @@ class User extends Authenticatable
      */
     public function setAddressLine2(string $AddressLine2): void
     {
-        $this->AddressLine2 = $AddressLine2;
+        $this->fillable['AddressLine2'] = $AddressLine2;
     }
 
     /**
@@ -172,7 +172,7 @@ class User extends Authenticatable
      */
     public function getTown(): string
     {
-        return $this->Town;
+        return $this->fillable['Town'];
     }
 
     /**
@@ -180,7 +180,7 @@ class User extends Authenticatable
      */
     public function setTown(string $Town): void
     {
-        $this->Town = $Town;
+        $this->fillable['Town'] = $Town;
     }
 
     /**
@@ -188,7 +188,7 @@ class User extends Authenticatable
      */
     public function getPostCode(): string
     {
-        return $this->PostCode;
+        return $this->fillable['PostCode'];
     }
 
     /**
@@ -196,7 +196,7 @@ class User extends Authenticatable
      */
     public function setPostCode(string $PostCode): void
     {
-        $this->PostCode = $PostCode;
+        $this->fillable['PostCode'] = $PostCode;
     }
 
     /**
@@ -235,48 +235,34 @@ class User extends Authenticatable
     //        CONSTRUCTORS
     //=====================================
     function __construct(array $attributes = [
-        //'id' => "-1",
-        'FullName' => "Andrew Warnock",
-        'Email' => "30407681@bigvisiongames.co.uk",
+        'name' => "Andrew Warnock",
+        'email' => "30407681@bigvisiongames.co.uk",
         'ContactNo' => "",
-        'Password' => "",
+        'password' => "",
         'role' => "Customer",
         'AddressLine1' => "",
         'AddressLine2' => "",
         'Town' => "",
         'PostCode' => "",
-        'LoyaltyNo' => "",
-        'Orders' => [new Order(),],
-        'Appointments' => [new Appointment(),],
+        'visionary_id' => ""
     ])
     {
         parent::__construct($attributes);
-        //$this->id = $attributes["id"];
-        $this->FullName = $attributes["FullName"];
-        $this->Email = $attributes["Email"];
-        $this->ContactNo = $attributes["ContactNo"];
-        $this->Password = $attributes["Password"];
-        $this->Role = $attributes["role"];
 
-        $this->fillable['name'] = $attributes["FullName"];
-        $this->fillable['email'] = $attributes["Email"];
-        $this->fillable['password'] = $attributes["Password"];
+        $this->fillable['name'] = $attributes["name"];
+        $this->fillable['email'] = $attributes["email"];
+        $this->fillable['password'] = $attributes["password"];
         $this->fillable['role'] = $attributes["role"];
 
 
-        $this->hidden['password'] = $attributes["Password"];
-
-        //To be checked only during login, crashes registration
-        //$this->hidden['remember_token'] = $attributes["remember_token"];
+        $this->hidden['password'] = $attributes["password"];
 
         //Customer Specific
-        $this->AddressLine1     = $attributes['AddressLine1'];
-        $this->AddressLine2     = $attributes['AddressLine2'];
-        $this->Town             = $attributes['Town'];
-        $this->PostCode         = $attributes['PostCode'];
-        $this->LoyaltyNo        = $attributes['LoyaltyNo'];
-        $this->Orders           = $attributes['Orders'];
-        $this->Appointments     = $attributes['Appointments'];
+        $this->fillable['AddressLine1'] = $attributes['AddressLine1'];
+        $this->fillable['AddressLine2']     = $attributes['AddressLine2'];
+        $this->fillable['Town']             = $attributes['Town'];
+        $this->fillable['PostCode']         = $attributes['PostCode'];
+        $this->fillable['visionary_id']        = $attributes['visionary_id'];
     }
 
     // ===================================
@@ -292,7 +278,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'AddressLine1',
+        'AddressLine2',
+        'Town',
+        'PostCode',
+        'visionary_id'
     ];
 
     /**

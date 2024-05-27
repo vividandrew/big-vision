@@ -25,27 +25,43 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update($request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        /*
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'AddressLine1',
+            'AddressLine2',
+            'Town',
+            'PostCode'
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }*/
+        $user = Auth::user();
 
-        $request->user()->setFullName($request['name']);
-        $request->user()->setEmail($request['email']);
-        $request->user()->setAddressLine1($request['AddressLine1']);
-        $request->user()->setAddressLine2($request['AddressLine2']);
-        $request->user()->setTown($request['Town']);
-        $request->user()->setPostCode($request['PostCode']);
 
-        $request->user()->save();
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->AddressLine1 = $request['AddressLine1'];
+        $user->AddressLine2 = $request['AddressLine2'];
+        $user->Town = $request['Town'];
+        $user->PostCode = $request['PostCode'];
+        $user->save();
+
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+    public function personalEdit(Request $request)
+    {
+        return view('profile.editpersonal', [
+            'user' => $request->user(),
+        ]);
+    }
 
+    public function personalUpdate($request) : RedirectResponse
+    {
+        return $request;
+        return redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
     /**
      * Delete the user's account.
      */

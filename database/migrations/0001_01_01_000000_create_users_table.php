@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\Appointment;
+use App\Models\Order;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -41,7 +44,25 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+
+        //Register default users
+        $admin = new \App\Models\User([
+            'name' => "Admin",
+            'email' => "Admin@bigvisiongames.co.uk",
+            'ContactNo' => "",
+            'password' => Hash::make('Admin'),
+            'role' => "Admin",
+            'AddressLine1' => "",
+            'AddressLine2' => "",
+            'Town' => "",
+            'PostCode' => "",
+            'visionary_id' => null,
+        ]);
+
+        $admin->save();
     }
+
 
     /**
      * Reverse the migrations.

@@ -49,23 +49,23 @@
 
         <div>
             <x-input-label for="AddressLine1" :value="__('AddressLine1')" />
-            <x-text-input id="AddressLine1" name="AddressLine1" type="text" class="mt-1 block w-full" :value="old('AddressLine1', $user->getAddressLine1())"/>
+            <x-text-input id="AddressLine1" name="AddressLine1" type="text" class="mt-1 block w-full" :value="old('AddressLine1', $user->AddressLine1)"/>
             <x-input-error class="mt-2" :messages="$errors->get('AddressLine1')" />
         </div>
 
         <div>
             <x-input-label for="AddressLine2" :value="__('AddressLine2')" />
-            <x-text-input id="AddressLine2" name="AddressLine2" type="text" class="mt-1 block w-full" :value="old('AddressLine1', $user->getAddressLine2())"/>
+            <x-text-input id="AddressLine2" name="AddressLine2" type="text" class="mt-1 block w-full" :value="old('AddressLine1', $user->AddressLine2)"/>
             <x-input-error class="mt-2" :messages="$errors->get('AddressLine2')" />
         </div>
         <div>
             <x-input-label for="Town" :value="__('Town')" />
-            <x-text-input id="Town" name="Town" type="text" class="mt-1 block w-full" :value="old('Town', $user->getTown())"/>
+            <x-text-input id="Town" name="Town" type="text" class="mt-1 block w-full" :value="old('Town', $user->Town)"/>
             <x-input-error class="mt-2" :messages="$errors->get('Town')" />
         </div>
         <div>
             <x-input-label for="PostCode" :value="__('PostCode')" />
-            <x-text-input id="PostCode" name="PostCode" type="text" class="mt-1 block w-full" :value="old('PostCode', $user->getPostCode())"/>
+            <x-text-input id="PostCode" name="PostCode" type="text" class="mt-1 block w-full" :value="old('PostCode', $user->PostCode)"/>
             <x-input-error class="mt-2" :messages="$errors->get('PostCode')" />
         </div>
 
