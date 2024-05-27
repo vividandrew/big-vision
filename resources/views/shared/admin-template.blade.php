@@ -45,9 +45,14 @@
                 </a>
             </li>
             <li>
-                <a href="{{route("logout")}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <span class="flex-1 ms-3 whitespace-nowrap">Log Out</span>
-                </a>
+                <form id="userLogout" method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a href="{{route("logout")}}"
+                       class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                       onclick="event.preventDefault();document.getElementById('userLogout').submit()"
+                       tabindex="-1" id="user-menu-item-2">
+                        <span class="flex-1 ms-3 whitespace-nowrap">Log out</span></a>
+                </form>
             </li>
             <li>
                 <a href="/" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">

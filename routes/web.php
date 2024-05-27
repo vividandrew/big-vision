@@ -59,13 +59,11 @@ Route::get('/admin/order/destroy/{id}',[OrderController::class, 'destroy'])->nam
 Route::post('/admin/order/destroy/{id}',[OrderController::class, 'destroy'])->name('order.destroy.post');
 
 //wildcards that grab the rest must stay last
-Route::get('/order/{id}', [OrderController::class, 'addProduct'])->name('order.product');
+Route::post('/order/{id}', [OrderController::class, 'addProduct'])->name('order.product');
 
 // [[ ACCOUNT RELATED ROUTES ]]
 Route::get('/account/login', [AccountController::class, 'login']);
-Route::get('/account/dashboard', function () {
-    return view('account.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/account/dashboard', [AccountController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

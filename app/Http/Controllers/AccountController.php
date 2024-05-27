@@ -18,6 +18,15 @@ class AccountController extends Controller
         return view('home.index');
     }
 
+    public function dashboard()
+    {
+            if(Auth::user()->role != "Customer")
+            {
+                return view('admin.index');
+            }
+            return view('account.dashboard');
+    }
+
     public function login()
     {
         return view('account.login');

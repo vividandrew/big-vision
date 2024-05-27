@@ -87,15 +87,20 @@ class OrderController extends Controller
     /*
      * Add Product to order
      */
-    public function addProduct($id)
+    public function addProduct(Request $request ,$id)
     {
+        $request->validate([
+            'Quantity'=> 'required',
+        ]);
+        $quantity = (int)$request['Quantity'];
+
         $user = Auth::user();
         if($user == null) return redirect('/register');
 
         $product = Product::whereId($id)->first();
         if($product == null) return redirect('/products');
 
-        if($product->Stock < 1) return redirect('/products');
+        if($product->Stock < $quantity) return redirect('/products');
 
         //Grabs the most recent order(basket) for the user
         $order = Order::where('CustomerId', $user->id)->orderByDesc('created_at')->first();
@@ -117,7 +122,7 @@ class OrderController extends Controller
             $orderLine = new OrderLine([
                 'id' => -1,
                 'ProductId' => $id,
-                'Quantity' => 1,
+                'Quantity' => $quantity,
                 'OrderId' => $order->id,
             ]);
 
@@ -142,7 +147,7 @@ class OrderController extends Controller
                 {
                     $exist = true;
                     //TODO:: check quantity number
-                    $ol->Quantity += 1;
+                    $ol->Quantity += $quantity;
                     $ol->update(); //Updates the database
                     break;
                 }
@@ -154,18 +159,18 @@ class OrderController extends Controller
                 $orderLine = new OrderLine([
                     'id' => -1,
                     'ProductId' => $id,
-                    'Quantity' => 1,
+                    'Quantity' => $quantity,
                     'OrderId' => $order->id
                 ]);
 
                 //TODO:: check if the following is actually needed
                 OrderLine::create($orderLine->allDB()); //adds orderline to the database
-                $orderLine = OrderLine::where('OrderId', $order->id)->orderByDesc('created_at')->first(); //reassigns for id
+                //$orderLine = OrderLine::where('OrderId', $order->id)->orderByDesc('created_at')->first(); //reassigns for id
                 array_push($order->OrderLines, $orderLine);
             }
         }
 
-        $product->Stock--;
+        $product->Stock-= $quantity;
         $product->save();
 
         return redirect('/basket'); //Order page is used to add product, redirects user to basket after order is filled

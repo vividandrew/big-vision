@@ -25,6 +25,7 @@ class ProductController extends Controller
         //TODO::Set Authentication check
         $request->validate([
            'Name' => 'required',
+           'Description' => 'nullable',
            'Price' => 'required',
            'Stock' => 'required',
            'Barcode' => 'nullable',
@@ -59,6 +60,7 @@ class ProductController extends Controller
 
         $request->validate([
             'Name' => 'required',
+            'Description' => 'nullable',
             'Price' => 'required',
             'Stock' => 'required',
             'Barcode' => 'nullable',
@@ -74,6 +76,7 @@ class ProductController extends Controller
 
         // checks every variable to see if there is a difference, if so change it and set change variable to true
         if($product->Name != $request['Name']           && $request['Name'] != null)        $product->Name = $request['Name'];      $change = true;
+        if($product->Description != $request['Description'])                                      $product->Description = $request['Description'];  $change = true;
         if($product->Price != $request['Price']         && $request['Price'] != null)       $product->Price = $request['Price'];     $change = true;
         if($product->Stock != $request['Stock']         && $request['Stock'] != null)       $product->Stock = $request['Stock'];     $change = true;
         if($product->Barcode != $request['Barcode'])                                        $product->Barcode = $request['Barcode'];   $change = true;
