@@ -102,7 +102,8 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
 Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
 Route::get('/account/appointments',[AppointmentController::class, 'index'])->name('admin.appointments');
-
+//Route::get('/admin/eod', function(){return view('admin.EOD');}); //for display purposes to edit receipt
+Route::get('/admin/print/eod', [AdminController::class, 'printEOD'])->name('admin.print.eod');
 
 // [[ APPOINTMENT ROUTES ]]
 //Create appointment

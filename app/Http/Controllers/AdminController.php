@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Product;
 use App\Models\User;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -58,6 +59,17 @@ class AdminController extends Controller
     {
         $users = User::all();
         return view('admin.users')->with('users', $users);
+    }
+
+    public function printEOD()
+    {
+        $pdf = new Dompdf();
+        $pdf->loadHtml(view('admin.eod'));
+        $pdf->setPaper('A4', 'landscape');
+
+        $pdf->render();
+
+        return $pdf->stream();
     }
 
     function appointments()
