@@ -46,22 +46,21 @@
                 </div>
 
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                    <div class="flex flex-shrink-0 items-center">
-                        <a href="/">
-                            <img class="h-8 w-auto"
-                                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                 alt="Your Company">
-                        </a>
-                    </div>
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                            @if(Auth::user() != null)
+                                @if(Auth::user()->role == "Customer")
+                                    <a href="{{route("dashboard")}}" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                                       aria-current="page">Dashboard</a>
+                                @else
+                                    <a href="{{route("admin.index")}}" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                                       aria-current="page">Dashboard</a>
+                                @endif
+                            @endif
                             <a href="{{route('products.index')}}"
                                class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                aria-current="page">View Products</a>
-                            <a href="#"
-                               class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Contact
-                                Us</a>
                         </div>
                     </div>
 
@@ -199,14 +198,17 @@
         <div class="sm:hidden hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pb-3 pt-2">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                @if(Auth::user() != null)
+                    @if(Auth::user()->role == "Customer")
+                        <a href="{{route('dashboard')}}"
+                           class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
+                    @else
+                        <a href="{{route('admin.index')}}"
+                           class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
+                    @endif
                 <a href="{{route('products.index')}}"
-                   class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
-                <a href="#"
-                   class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
-                <a href="#"
-                   class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
-                <a href="#"
-                   class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
+                   class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">View Products</a>
+                @endif
             </div>
         </div>
     </nav>

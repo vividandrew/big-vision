@@ -45,7 +45,8 @@ Route::get('/payment-cancelled', [CheckoutController::class, 'paymentCancelled']
 //Route::get('/order/basket/{id}', [OrderController::class, 'createOrder'])->name('order.basket');
 Route::get('/order/checkout/{id}', [CheckoutController::class, 'Checkout'])->name('order.checkout');
 Route::post('/order/checkout/{id}', [CheckoutController::class, 'CheckoutPost'])->name('order.checkout.post');
-
+//Route::get('/order/receipt/{id}', [OrderController::class, 'PrintReceipt']); //For development purposes to customise receipt
+Route::get('/order/print/{id}', [OrderController::class, 'downloadReceipt'])->name('download.receipt');
 
 //View order
 Route::get('/order/view/{id}', [OrderController::class, 'show'])->name('order.show');

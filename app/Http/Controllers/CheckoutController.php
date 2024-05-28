@@ -194,7 +194,7 @@ class CheckoutController extends Controller
         $order->save();
 
         //TODO:: create receipt for the products the product
-        return view('basket.payment-success');
+        return view('basket.payment-success')->with('id', $order->id);
     }
 
     public function paymentCancelled()

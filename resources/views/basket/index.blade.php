@@ -11,7 +11,6 @@
                 <h5> Apply loyalty points, from 0 to {{$loyalty->LoyaltyPoints}}</h5>
                 <form method="POST" action="{{route('order.applyPoints', $order->id)}}">
                     @csrf
-                    <label for="PointsSpent" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Min-max range</label>
                     <input name="PointsSpent" id="PointsSpent" type="range" min="0" max="{{$loyalty->LoyaltyPoints}}" value="0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                     <button type="submit" class="h-20 w-full md:h-10 md:w-fit rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Apply points</button>
                 </form>

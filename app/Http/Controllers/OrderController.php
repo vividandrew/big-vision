@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Product;
+use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
 use Faker\Core\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +46,41 @@ class OrderController extends Controller
         return view('account.orders')->with('orders', $orders);
     }
 
+    /**
+     *  For development of the actual receipt to enable to route in web.php
+     */
+    public function PrintReceipt($id)
+    {
+        $order = Order::whereId($id)->first();
+        foreach(OrderLine::all()->where('OrderId', $order->id) as $ol)
+        {
+            $ol->product = Product::whereId($ol->ProductId)->first();
+            array_push($order->OrderLines, $ol);
+        }
+        return view('order.receipt')->with('order', $order);
+    }
+
+
+    /**
+     *  Render the receipt as a pdf that the user can download
+     */
+    public function downloadReceipt($id)
+    {
+        $order = Order::whereId($id)->first();
+        foreach(OrderLine::all()->where('OrderId', $order->id) as $ol)
+        {
+            $ol->product = Product::whereId($ol->ProductId)->first();
+            array_push($order->OrderLines, $ol);
+        }
+
+        $pdf = new Dompdf();
+        $pdf->loadHtml(view('order.receipt')->with('order', $order));
+        $pdf->setPaper('A4', 'landscape');
+
+        $pdf->render();
+
+        return $pdf->stream();
+    }
     /*
      *  Basket
      */

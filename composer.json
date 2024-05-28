@@ -6,10 +6,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ext-http": "*",
+        "barryvdh/laravel-dompdf": "^2.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
-        "paypal/rest-api-sdk-php": "^1.6",
-        "ext-http": "*"
+        "paypal/rest-api-sdk-php": "^1.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
