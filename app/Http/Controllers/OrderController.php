@@ -140,7 +140,7 @@ class OrderController extends Controller
         if($product->Stock < $quantity) return redirect('/products');
 
         //Grabs the most recent order(basket) for the user
-        $order = Order::where('CustomerId', $user->id)->orderByDesc('created_at')->first();
+        $order = Order::where('CustomerId', $user->id)->where('Status', 'Basket')->first();
 
         //Creates a new order if there isn't already an order in place
         if($order == null){
@@ -153,7 +153,7 @@ class OrderController extends Controller
                 'PointsSpent' => 0,
             ]);
             Order::create($order->allDB()); //this creates a database entry, but in this case is used to set ID
-            $order = Order::where('CustomerId', $user->id)->orderByDesc('created_at')->first(); //resets order to have correct id
+            $order = Order::where('CustomerId', $user->id)->where('Status', 'Basket')->first(); //resets order to have correct id
 
             //Creates a new orderline that the product will be assosiated with
             $orderLine = new OrderLine([
@@ -183,7 +183,6 @@ class OrderController extends Controller
                 if($ol->ProductId == $id)
                 {
                     $exist = true;
-                    //TODO:: check quantity number
                     $ol->Quantity += $quantity;
                     $ol->update(); //Updates the database
                     break;

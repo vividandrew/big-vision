@@ -10,10 +10,10 @@
                 </div>
             </div>
             <div class="grid grid-cols-3">
-                <div class="bg-gray-300 rounded-lg p-2 m-2">
+                <div class="bg-red-700 rounded-lg p-2 m-2">
                     <a href="{{route('account.orders')}}">View Orders</a>
                 </div>
-                <div class="bg-gray-300 rounded-lg p-2 m-2">
+                <div class="bg-red-700 rounded-lg p-2 m-2">
                     @if(\App\Models\Appointment::where('CustomerId', Auth::user()->id)->first() == null)
                         <a href="{{route('appointment.create')}}">Make Trade in Appointment</a>
                     @else
@@ -40,7 +40,7 @@
                         @endphp
                     @endif
                 </div>
-                <div class="bg-gray-300 rounded-lg p-2 m-2">
+                <div class="bg-red-700 rounded-lg p-2 m-2">
                     @if(\App\Models\Visionary::where('CustomerId', Auth::user()->id)->first() == null)
                         <form id="registerLoyalty" method="POST" action="{{route('user.register.loyalty')}}" >
                             @csrf

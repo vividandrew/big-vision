@@ -54,14 +54,14 @@ class Order extends Model
     //        PRIVATE FUNCTIONS
     //=====================================
     /**
-     * @return int
+     * @return float
      */
-    private function calcTotal() : int
+    private function calcTotal() : float
     {
-        $total = 0.00;
+        $total = (float) 0.00;
         foreach($this->OrderLines as $ol)
         {
-            $total += $ol->Quantity * $ol->product->Price;
+            $total += (float) $ol->Quantity * $ol->product->Price;
         }
         return $total;
     }

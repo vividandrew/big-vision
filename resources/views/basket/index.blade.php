@@ -46,7 +46,7 @@
                     <td class="pr-5 border-black border-b-2">£{{$ol->Quantity*$ol->product->Price}}</td>
                     <?php $total += $ol->Quantity*$ol->product->Price;?>
                     <td>
-                        <a class="p-1 bg-gray-300 hover:bg-gray-400 rounded" href="{{route('order.removeProduct', $ol->id)}}">Remove item</a>
+                        <a class="p-1 bg-red-800 hover:bg-red-600 rounded" href="{{route('order.removeProduct', $ol->id)}}">Remove item</a>
                     </td>
                 </tr>
             @endforeach
@@ -76,7 +76,7 @@
     ?>
         <h5>Total: £{{$total}}</h5>
         <div class="p-2">
-            <a class="bg-gray-300 hover:bg-gray-400 rounded p-2" href="{{route('order.checkout', $order->id)}}">Order</a>
+            <a class="bg-red-800 hover:bg-red-700 rounded p-2" href="{{route('order.checkout', $order->id)}}">Order</a>
         </div>
     @endif
 @endsection

@@ -10,16 +10,16 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 </head>
-<body class="bg-gray-600">
-<div class="bg-blue-50">
+<body class="bg-orange-700">
+<div class="bg-red-900 text-white font-bold">
     <!-- NavMenu -->
-    <nav class="bg-gray-800">
+    <nav class="bg-red-700">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                     <!-- Mobile menu button-->
                     <button id="AWMenuButton" type="button"
-                            class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                            class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-red-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                             aria-controls="mobile-menu" aria-expanded="false">
                         <span class="absolute -inset-0.5"></span>
                         <span class="sr-only">Open main menu</span>
@@ -46,20 +46,23 @@
                 </div>
 
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                    <a class="group" href="/">
+                    <div class="tracking-tighter">BVG</div>
+                    </a>
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             @if(Auth::user() != null)
                                 @if(Auth::user()->role == "Customer")
-                                    <a href="{{route("dashboard")}}" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                                    <a href="{{route("dashboard")}}" class="hover:bg-red-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                        aria-current="page">Dashboard</a>
                                 @else
-                                    <a href="{{route("admin.index")}}" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                                    <a href="{{route("admin.index")}}" class="hover:bg-red-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                        aria-current="page">Dashboard</a>
                                 @endif
                             @endif
                             <a href="{{route('products.index')}}"
-                               class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                               class="hover:bg-red-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                aria-current="page">View Products</a>
                         </div>
                     </div>
@@ -87,10 +90,10 @@
                     <div class="relative ml-3">
                         <div>
                             <button type="button"
-                                    class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none"
+                                    class="relative flex rounded-full text-sm focus:outline-none"
                                     id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                             <span
-                                class="text-2xl right-0 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2">
+                                class="text-2xl right-0 text-gray-300 hover:bg-red-900 hover:text-white rounded-md px-3 py-2">
                                 <div>{{ Auth::user()->name }}</div>
                                 <div class="ms-1">
                                     <svg class="fill-white h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -201,13 +204,13 @@
                 @if(Auth::user() != null)
                     @if(Auth::user()->role == "Customer")
                         <a href="{{route('dashboard')}}"
-                           class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
+                           class="hover:bg-red-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
                     @else
                         <a href="{{route('admin.index')}}"
-                           class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
+                           class="hover:bg-red-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
                     @endif
                 <a href="{{route('products.index')}}"
-                   class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">View Products</a>
+                   class="hover:bg-red-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">View Products</a>
                 @endif
             </div>
         </div>
@@ -223,7 +226,7 @@
 </div>
 
 <!-- FOOTER -->
-<div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-12 content-center text-center bg-gray-600 text-blue-100">
+<div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-12 content-center text-center bg-orange-700 text-blue-100">
     <div class="md:mr-20 md:border-r-2 md:border-black md:p-10 md:h-10"><p>Contact Information</p></div>
     <div><p>Quick link</p></div>
     <div class="md:ml-20 md:border-l-2 md:border-black md:p-10 md:h-10"><p>Socials</p></div>

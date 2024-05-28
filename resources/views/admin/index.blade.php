@@ -12,6 +12,4 @@
         </div>
     </div>
     @endif
-
-
 @endsection

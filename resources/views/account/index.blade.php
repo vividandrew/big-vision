@@ -4,5 +4,4 @@
     <p>
         Home page filled with content
     </p>
-
 @endsection

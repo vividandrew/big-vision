@@ -184,11 +184,14 @@ class CheckoutController extends Controller
         }
 
         $loyalty  = Visionary::where('CustomerId', Auth::user()->id)->first();
-        $loyalty->LoyaltyPoints -= $order->PointsSpent;
+        if($loyalty != null)
+        {
+            $loyalty->LoyaltyPoints -= $order->PointsSpent;
 
-        $loyalty->LoyaltyPoints += round($order->getTotal());
+            $loyalty->LoyaltyPoints += round($order->getTotal());
 
-        $loyalty->save();
+            $loyalty->save();
+        }
 
         $order->Status = 'Ordered';
         $order->save();
