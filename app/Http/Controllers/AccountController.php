@@ -70,9 +70,18 @@ class AccountController extends Controller
     public function editPost(Request $request, $id)
     {
         $user = User::whereId($id)->first();
-        $request->validate([
-            'role' => 'required',
-        ]);
+        $loyaltyUser = Visionary::where('CustomerId', $user->id)->first();
+        if($loyaltyUser == null)
+        {
+            $request->validate([
+                'role' => 'required',
+            ]);
+        }else{
+            $request->validate([
+                'role' => 'required',
+                'points' => 'required',
+            ]);
+        }
 
         $role = new Role();
 
@@ -83,6 +92,17 @@ class AccountController extends Controller
         {
             $user->role = $role->getRole();
             $user->save();
+        }
+
+
+        if($loyaltyUser != null)
+        {
+            //Checks if the value has changed then updates the database
+            if($loyaltyUser->LoyaltyPoints != $request['points'])
+            {
+                $loyaltyUser->LoyaltyPoints = $request['points'];
+                $loyaltyUser->save();
+            }
         }
 
         return redirect()->route('admin.index');

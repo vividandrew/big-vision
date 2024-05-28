@@ -24,6 +24,7 @@
                     <span class="ms-3">Dashboard</span>
                 </a>
             </li>
+            @if(Auth::user()->role != "Warehouse")
             <li>
                 <a href="{{route('admin.users')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <span class="flex-1 ms-3 whitespace-nowrap">View Users</span>
@@ -39,11 +40,14 @@
                     <span class="flex-1 ms-3 whitespace-nowrap">View Orders</span>
                 </a>
             </li>
-            <li>
-                <a href="{{route('admin.products')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <span class="flex-1 ms-3 whitespace-nowrap">View Products</span>
-                </a>
-            </li>
+            @endif
+            @if(Auth::user()->role != "Store")
+                <li>
+                    <a href="{{route('admin.products')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="flex-1 ms-3 whitespace-nowrap">View Products</span>
+                    </a>
+                </li>
+            @endif
             <li>
                 <form id="userLogout" method="POST" action="{{ route('logout') }}">
                     @csrf
