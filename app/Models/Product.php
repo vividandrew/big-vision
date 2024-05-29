@@ -61,4 +61,17 @@ class Product extends Model
         'Discount',
         'ImageUrl'
     ];
+
+    //Used to grab the price with taking into consideration the discount
+    public function getPrice() : float
+    {
+        $price = (float) $this->fillable['Price'];
+        if($this->fillable['Discount'] > 0)
+        {
+            $discount = (float) $price * ((float)$this->fillable('Discount') / 100);
+            $price -= $discount;
+        }
+
+        return $price;
+    }
 }

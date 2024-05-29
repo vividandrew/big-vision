@@ -28,7 +28,7 @@
                                     break;
                                 case "Appointed":
                                     $message = "Your appointment has been allocated to:<br>"
-                                    . $app->DateOf
+                                    . Carbon\Carbon::create($app->DateOf)->format('m/d/Y')
                                     . "<br> Your registered to have an appointment with "
                                     . App\Models\User::whereId($app->StaffId)->first()->name;
                                     break;

@@ -14,7 +14,7 @@
             <tr>
                 <td>{{$appointment->id}}</td>
                 <td>{{$appointment->Status}}</td>
-                <td>{{$appointment->DateOf}}</td>
+                <td>{{Carbon\Carbon::create($appointment->DateOf)->format('m/d/Y')}}</td>
                 <td>{{$appointment->CustomerName}}</td>
                 <td>{{$appointment->StaffName}}</td>
                 <td>

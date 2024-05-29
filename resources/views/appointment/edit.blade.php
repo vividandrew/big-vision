@@ -11,7 +11,6 @@
                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                         <label for="Status" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">Status:</label>
                         <select name="Status" id="Status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option>Select Status</option>
                             @for($x = 0; $x < sizeof($Statuses); $x++)
                                 <option <?php if($Statuses[$x] == $appointment->Status){echo "selected";} ?> value="{{$x}}">{{$Statuses[$x]}}</option>
                             @endfor
@@ -24,7 +23,7 @@
                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                         <label for="StaffId" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">Assigned Staff:</label>
                         <select name="StaffId" id="StaffId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option>Choose Employee</option>
+                            <option value="-1">Choose Employee</option>
                             @foreach($staffs as $staff)
                                 <option <?php if($staff->id == $appointment->StaffId){echo "selected";} ?> value="{{$staff->id}}">
                                     {{$staff->name}}</option>

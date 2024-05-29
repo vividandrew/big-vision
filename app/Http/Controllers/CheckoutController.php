@@ -17,6 +17,7 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
+use function Webmozart\Assert\Tests\StaticAnalysis\length;
 
 class CheckoutController extends Controller
 {
@@ -57,14 +58,25 @@ class CheckoutController extends Controller
         $order->Status = "payment-processing";
         $order->save();
 
-        if($request['CardNo'] == "4242424242424242")
+        //Form validation for backend
+        if(strlen($request['CardNo'])               != 16||
+            strlen($request['ExpDate'])             != 5 ||
+            strlen($request['SecurityNo'])          != 3 ||
+            strlen($request['CardHolderName'] <= 0))
+        {
+            return redirect()->route('order.checkout', $id);
+        }
+
+        /*
+         * For testing purposes
+        if($request['CardNo'] != "4242424242424242")
         {
             //payment is a success
-            return redirect('/payment-success');
+            return redirect('/payment-cancelled');
+        }*/
 
-        }
         //payment was cancelled
-        return redirect('/payment-cancelled');
+        return redirect('/payment-success');
 
 
     }

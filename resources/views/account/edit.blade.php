@@ -24,7 +24,7 @@
             @if($loyaltyUser != null)
                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                     <label for="points" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">Loyalty Points</label>
-                    <input type="number" name="points" id="points" value="{{$loyaltyUser->LoyaltyPoints}}" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="0">
+                    <input type="number" required min="0" name="points" id="points" value="{{$loyaltyUser->LoyaltyPoints}}" class="block flex-1 invalid:border-pink-400 invalid:text-red-600 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="0">
                 </div>
             @endif
         </div>

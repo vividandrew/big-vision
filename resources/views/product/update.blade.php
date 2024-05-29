@@ -8,7 +8,7 @@
                 <div class="mt-2">
                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                         <label for="Name" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">*Product Name:</label>
-                        <input type="text" name="Name" id="Name" value="{{$product->Name}}" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Product Name">
+                        <input type="text" required name="Name" id="Name" value="{{$product->Name}}" class="block flex-1 invalid:border-pink-400 invalid:text-red-600 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Product Name">
                     </div>
                 </div>
                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600 mt-2">
@@ -21,13 +21,13 @@
                     <div class="mt-2">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                             <label for="Price" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">*Price:</label>
-                            <input type="text" name="Price" value="{{$product->Price}}" id="Price" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="1.00">
+                            <input type="number" min="0" step="0.01" required pattern="[0-9]*.[0-9][0-9]" name="Price" value="{{$product->Price}}" id="Price" class="block flex-1 invalid:border-pink-400 invalid:text-red-600 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="1.00">
                         </div>
                     </div>
                     <div class="mt-2">
                         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                             <label for="Stock" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">*Stock:</label>
-                            <input type="text" name="Stock" value="{{$product->Stock}}" id="Stock" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="0">
+                            <input type="number" required min="0" name="Stock" value="{{$product->Stock}}" id="Stock" class="block flex-1 invalid:border-pink-400 invalid:text-red-600 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="0">
                         </div>
                     </div>
                     <div class="mt-2">
@@ -45,8 +45,8 @@
                     <div class="border-gray-900/10">
                         <div class="mt-2">
                             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                                <label for="Discount" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">Discount:</label>
-                                <input type="text" name="Discount" value="{{$product->Discount}}" id="Discount" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="0.10">
+                                <label for="Discount" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">Discount: %</label>
+                                <input type="number" min="0" max="100" name="Discount" value="{{$product->Discount}}" id="Discount" class="block flex-1 invalid:border-pink-400 invalid:text-red-600 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="10">
                             </div>
                         </div>
                     </div>
