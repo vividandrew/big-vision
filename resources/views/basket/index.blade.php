@@ -43,8 +43,8 @@
                         {{$ol->product->Name}}
                     </td>
                     <td class="pr-5 pl-2 border-black border-b-2">{{$ol->Quantity}}</td>
-                    <td class="pr-5 border-black border-b-2">£{{$ol->Quantity*$ol->product->Price}}</td>
-                    <?php $total += $ol->Quantity*$ol->product->Price;?>
+                    <td class="pr-5 border-black border-b-2">£{{$ol->Quantity*$ol->product->getPrice()}}</td>
+                    <?php $total += $ol->Quantity*$ol->product->getPrice();?>
                     <td>
                         <a class="p-1 bg-red-800 hover:bg-red-600 rounded" href="{{route('order.removeProduct', $ol->id)}}">Remove item</a>
                     </td>

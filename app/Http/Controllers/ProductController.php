@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderLine;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::whereId($id)->firstOrFail();
+        $product = Product::whereId($id)->first();
 
         return view('product.details')->with('product', $product);
     }
@@ -93,5 +94,17 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+        $product = Product::whereId($id)->first();
+        foreach(OrderLine::all() as $ol)
+        {
+            if($ol->ProductId == $product->id)
+            {
+                $ol->delete();
+            }
+        }
+        $product->delete();
+
+        return redirect()->route('admin.products');
+
     }
 }

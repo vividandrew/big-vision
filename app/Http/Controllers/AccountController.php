@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\External\Role;
+use App\Models\Appointment;
 use App\Models\Customer;
+use App\Models\Order;
+use App\Models\OrderLine;
 use App\Models\User;
 use App\Models\Visionary;
 
@@ -108,6 +111,54 @@ class AccountController extends Controller
         return redirect()->route('admin.index');
     }
 
+    public function destroy($id)
+    {
+        $user = Auth::user(); //Assign logged in user to variable user
+
+        //Authentication to ensure the logged in user can access this section
+        if($user == null){return redirect('/');}
+        if($user->role == "Warehouse"){return redirect()->route('admin.index');}
+
+        //This is for user deletion
+        if($user->role == "Customer" && $user->id != $id){return redirect('/');}
+
+        $dUser = User::whereId($id);
+
+        //Failsafe if user doesn't exist
+        if($dUser == null){return redirect()->route('admin.users');}
+
+        //Check that store staff is only trying to delete Customers, only managers and admins can delete staff members
+        if($user->role == "Store" && $dUser != "Customer"){return redirect()->route('admin.index');}
+
+        //Delete all associated items for the user
+        foreach(Order::all()->where('CustomerId', $dUser->id) as $order)
+        {
+            foreach(OrderLine::whereOrderId($order->id) as $ol)
+            {
+                $ol->delete();
+            }
+            $order->delete();
+        }
+
+        //Delete all appointments made by the user
+        foreach(Appointment::whereCustomerid($dUser->id) as $app)
+        {
+            $app->delete();
+        }
+
+        //Delete loyalty membership
+        $loyalty = Visionary::whereUserId($dUser->id)->first();
+        if($loyalty != null){$loyalty->delete();}
+
+        //this is executed if the user deletes themselves
+        if($user->id == $dUser->id)
+        {
+            $dUser->delete();
+            return redirect('/');
+        }
+        $dUser->delete(); //Final deletion of the user
+        return redirect()->route('admin.users');
+    }
     public function registerLoyalty()
     {
         $visionary = new Visionary([

@@ -7,7 +7,10 @@
                 {{$product->Name}}
             </h3>
             <p>
-                {{$product->Price}}
+            @if($product->Discount != null)
+                    <strike class="text-red-300">{{$product->Price}}</strike>
+            @endif
+                {{$product->getPrice()}}
             </p>
             <div class="m-2">
                 <form id="userLogout" method="POST" action="{{ route('order.product', $product->id) }}">

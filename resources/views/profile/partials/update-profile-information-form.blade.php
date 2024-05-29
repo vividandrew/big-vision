@@ -46,7 +46,7 @@
                 </div>
             @endif
         </div>
-
+        @if(Auth::user()->role == "Customer")
         <div>
             <x-input-label for="AddressLine1" :value="__('AddressLine1')" />
             <x-text-input id="AddressLine1" name="AddressLine1" type="text" class="mt-1 block w-full" :value="old('AddressLine1', $user->AddressLine1)"/>
@@ -68,7 +68,7 @@
             <x-text-input id="PostCode" name="PostCode" type="text" class="mt-1 block w-full" :value="old('PostCode', $user->PostCode)"/>
             <x-input-error class="mt-2" :messages="$errors->get('PostCode')" />
         </div>
-
+        @endif
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

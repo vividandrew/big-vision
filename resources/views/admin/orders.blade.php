@@ -22,7 +22,6 @@
                 <td>{{$order->getTotal()}}</td>
                 <td>
                     <a href="{{route("order.edit", $order->id)}}"> Edit</a>
-                    <a href="{{route("order.destroy", $order->id)}}"> Delete</a>
                 </td>
             </tr>
         @endforeach

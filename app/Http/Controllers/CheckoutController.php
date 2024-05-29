@@ -38,7 +38,7 @@ class CheckoutController extends Controller
         foreach($orderlines as $ol)
         {
             $product = Product::whereId($ol->ProductId)->first();
-            $total += $ol->Quantity * $product->Price;
+            $total += $ol->Quantity * $product->getPrice();
         }
 
         return view('basket.checkout')->with('total', $total)->with('order', $order);
@@ -46,13 +46,23 @@ class CheckoutController extends Controller
 
     public function CheckoutPost(Request $request, $id)
     {
-        //TODO:: to add in valid card and invalid card
+
         $request->validate([
             'CardNo'=> 'required',
             'ExpDate'=>'required',
             'SecurityNo'=>'required',
-            'CardHolderName'=>'required'
+            'CardHolderName'=>'required',
+            'AddressLine1' => 'required',
+            'AddressLine2' => 'nullable',
+            'Town' => 'required',
+            'PostCode' => 'required',
         ]);
+        $user = Auth::user();
+        $user->AddressLine1 = $request['AddressLine1'];
+        $user->AddressLine2 = $request['AddressLine2'];
+        $user->Town = $request['Town'];
+        $user->PostCode = $request['PostCode'];
+        $user->save();
 
         $order = Order::whereId($id)->first();
         $order->Status = "payment-processing";
@@ -84,6 +94,15 @@ class CheckoutController extends Controller
     {
         $user = Auth::user();
         if($user == null) return redirect('/'); //checks if tehre is a logged in user
+        if(
+            $user->AddressLine1 == null ||
+        $user->AddressLine2 == null ||
+        $user->Town == null ||
+        $user->PostCode == null)
+        {
+            return redirect().route('order.checkout');
+        }
+
 
         //makes sure the current logged in user belongs to the order
         if($user->id != Order::whereId($id)->first()->CustomerId){return redirect('/');}
@@ -95,7 +114,7 @@ class CheckoutController extends Controller
         foreach($orderlines as $ol)
         {
             $product = Product::whereId($ol->ProductId)->first();
-            $total += $ol->Quantity * $product->Price;
+            $total += $ol->Quantity * $product->getPrice();
         }
 
         return view('basket.paypal')->with('orderid', $id)->with('total', $total);
@@ -123,7 +142,7 @@ class CheckoutController extends Controller
         foreach($orderlines as $ol)
         {
             $product = Product::whereId($ol->ProductId)->first();
-            $total += $ol->Quantity * $product->Price;
+            $total += $ol->Quantity * $product->getPrice();
         }
 
         $payer = new Payer();
@@ -172,8 +191,7 @@ class CheckoutController extends Controller
 
         if ($verified) {
             $transactionId = $request->input('txn_id');
-            // Update booking record in database with $transactionId
-            // Send confirmation email to customer
+
             return response()->json(['status' => 'ok'], 200);
         } else {
             return response()->json(['error' => 'Invalid IPN'], 400);

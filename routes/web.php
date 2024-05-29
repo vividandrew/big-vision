@@ -57,7 +57,6 @@ Route::post('/admin/order/edit/{id}',[OrderController::class, 'update'])->name('
 
 //Delete order
 Route::get('/admin/order/destroy/{id}',[OrderController::class, 'destroy'])->name('order.destroy');
-Route::post('/admin/order/destroy/{id}',[OrderController::class, 'destroy'])->name('order.destroy.post');
 
 //wildcards that grab the rest must stay last
 Route::post('/order/{id}', [OrderController::class, 'addProduct'])->name('order.product');
@@ -87,8 +86,7 @@ Route::get('/admin/user/edit/{id}', [AccountController::class, 'edit'])->name('u
 Route::post('/admin/user/edit/{id}', [AccountController::class, 'editPost'])->name('user.edit.post');
 
 // Delete User
-Route::get('/admin/user/destroy/{id}', function(){return "remove user";})->name('user.destroy');
-Route::post('/admin/user/destroy/{id}', function(){return "remove user post";})->name('user.destroy.post');
+Route::get('/admin/user/destroy/{id}', [AccountController::class, 'destroy'])->name('user.destroy');
 
 // [[ ACCOUNT RELATED ACTIONS ]]
 Route::get('/basket', [OrderController::class, 'basket'])->name('account.basket');

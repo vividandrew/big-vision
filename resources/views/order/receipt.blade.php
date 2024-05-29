@@ -44,7 +44,7 @@
                     {{$ol->product->Name}}
                 </td>
                 <td>{{$ol->Quantity}}</td>
-                <td>£{{$ol->Quantity*$ol->product->Price}}</td>
+                <td>£{{$ol->Quantity*$ol->product->getPrice()}}</td>
             </tr>
         @endforeach
     </table>

@@ -209,9 +209,9 @@
                         <a href="{{route('admin.index')}}"
                            class="hover:bg-red-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
                     @endif
+                @endif
                 <a href="{{route('products.index')}}"
                    class="hover:bg-red-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">View Products</a>
-                @endif
             </div>
         </div>
     </nav>

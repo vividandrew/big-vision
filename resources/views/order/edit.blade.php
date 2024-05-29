@@ -8,8 +8,12 @@
                 <label for="id" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">Order ID: {{$order->id}}</label>
             </div>
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                <label for="Status" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">Order Status:</label>
-                <input type="text" name="Status" id="Status" value="{{$order->Status}}" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Refund">
+                <label for="Status" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">Status:</label>
+                <select name="Status" id="Status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 m-2">
+                    @for($x = 0; $x < sizeof($Statuses); $x++)
+                        <option <?php if($Statuses[$x] == $order->Status){echo "selected";} ?> value="{{$x}}">{{$Statuses[$x]}}</option>
+                    @endfor
+                </select>
             </div>
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                 <label for="OrderDate" class="flex font-bold select-none items-center pl-3 text-gray-500 sm:text-sm">Date Ordered: {{$order->OrderDate}}</label>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\External\OrderStatus;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Product;
@@ -130,6 +131,7 @@ class OrderController extends Controller
             'Quantity'=> 'required',
         ]);
         $quantity = (int)$request['Quantity'];
+        if($quantity < 0){return redirect()->route('product.show', $id);}
 
         $user = Auth::user();
         if($user == null) return redirect('/register');
@@ -282,7 +284,8 @@ class OrderController extends Controller
     public function edit($id)
     {
         $order = Order::whereId($id)->first();
-        return view('order.edit')->with('order', $order);
+        $Statuses = (new OrderStatus())->getStatuses();
+        return view('order.edit')->with('order', $order)->with('Statuses', $Statuses);
     }
 
     /**
@@ -295,22 +298,17 @@ class OrderController extends Controller
             'Status' => 'required',
         ]);
 
+        $status = new OrderStatus();
+        $status->setStatusById($request['Status']);
+
         $order = Order::whereId($id)->first();
-        if($order->Status != $request['Status'])
+        if($order->Status != $status->getStatus())
         {
-            $order->Status = $request['Status'];
+            $order->Status = $status->getStatus();
             $order->save();
         }
 
         return redirect()->route('admin.orders');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Order $order)
-    {
-        //
     }
 
     public function applyPoints(Request $request, $id)

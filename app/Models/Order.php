@@ -61,7 +61,7 @@ class Order extends Model
         $total = (float) 0.00;
         foreach($this->OrderLines as $ol)
         {
-            $total += (float) $ol->Quantity * $ol->product->Price;
+            $total += (float) $ol->Quantity * $ol->product->getPrice();
         }
         return $total;
     }
