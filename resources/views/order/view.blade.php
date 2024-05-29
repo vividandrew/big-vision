@@ -9,7 +9,7 @@
             Total for Order: £{{$order->getTotal()}}
         </div>
         <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-            Date Ordered: {{$order->OrderDate}}
+            Date Ordered: {{Carbon\Carbon::create($order->OrderDate)->format('m/d/Y')}}
         </div>
     </div>
 

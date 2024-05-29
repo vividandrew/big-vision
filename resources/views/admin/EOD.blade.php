@@ -13,7 +13,7 @@
             border-right: 1px solid black;
         }
     </style>
-<h1>Big Vision Games End of Day Report:{{\Carbon\Carbon::today()}}</h1>
+<h1>Big Vision Games End of Day Report:{{\Carbon\Carbon::today()->format('d/m/y')}}</h1>
 
 <div>
     <div>
