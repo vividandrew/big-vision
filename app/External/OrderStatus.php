@@ -4,6 +4,7 @@ namespace App\External;
 
 class OrderStatus
 {
+    //Array containing all the possible statuses the order can be in
     private $status = [
         'Basket',
         'Ordered',
@@ -18,6 +19,7 @@ class OrderStatus
 
     private function __GetStatusID__(string $name) : int
     {
+        //a private function to grab the select id from a string
         switch($name)
         {
             case 'Basket':

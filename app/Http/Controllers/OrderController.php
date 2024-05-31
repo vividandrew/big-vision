@@ -283,8 +283,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::whereId($id)->first();
-        $Statuses = (new OrderStatus())->getStatuses();
+        $order = Order::whereId($id)->first(); //grabs the order with the select order id
+        $Statuses = (new OrderStatus())->getStatuses(); //grabs all the statuses the order can be in for selection form
         return view('order.edit')->with('order', $order)->with('Statuses', $Statuses);
     }
 
@@ -293,15 +293,18 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        //All submission updates to the order must have a selected status
         $request->validate([
             'Status' => 'required',
         ]);
 
-        $status = new OrderStatus();
-        $status->setStatusById($request['Status']);
+        $status = new OrderStatus(); //grabs the class or orders
+        $status->setStatusById($request['Status']); //sets the status based on the input
 
+        //grabs the order that is being edited
         $order = Order::whereId($id)->first();
+
+        //a check to see if the status has been updated before saving to the database
         if($order->Status != $status->getStatus())
         {
             $order->Status = $status->getStatus();
@@ -313,6 +316,8 @@ class OrderController extends Controller
 
     public function applyPoints(Request $request, $id)
     {
+        //for the basket this submission form will submit the value of the slider
+        //and points will be applied to the order
         $order = Order::whereId($id)->first();
         $order->PointsSpent = $request['PointsSpent'];
         $order->save();

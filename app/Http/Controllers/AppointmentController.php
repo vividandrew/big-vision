@@ -14,17 +14,18 @@ use Illuminate\Support\Facades\Date;
 
 class AppointmentController extends Controller
 {
-    //TODO:: Make views for all appointment classes
     public function index()
     {
-        //TODO:: if staff is not admin, select only appointments assigned to the staff
-        $appointments = Appointment::all();//->where('Status', 'Requested')->orWhere('Status', 'Appointed');
+        $appointments = Appointment::all();
 
+        //Goes through each appointment and assigning the correct information to the appointment class
+        //used for the display view
         foreach($appointments as $appointment)
         {
             $appointment->CustomerName = User::whereId($appointment->CustomerId)->first()->name;
 
-            $appointment->StaffId == 0 ? $appointment->StaffName = "To Be Assigned" :
+            //Quick function for a simple if tstatement checking if there is an assigned staff member
+            $appointment->StaffId <= 0 ? $appointment->StaffName = "To Be Assigned" :
                 $appointment->StaffName = User::whereId($appointment->StaffId)->first()->name;
         }
 
@@ -44,8 +45,9 @@ class AppointmentController extends Controller
 
     public function createPost(Request $request)
     {
-        //TODO:: Create function to check if its staff making appointment or user
         $user = Auth::user();
+
+        //A check to ensure there is a logged in user
         if($user == null) return redirect()->route('home.index');
 
         $request->validate([
@@ -59,15 +61,20 @@ class AppointmentController extends Controller
             "StaffId" => 0
         ]);
 
+        //Saves appointemnt to the database
         Appointment::create($appointment->allDB());
-        return redirect()->route('home.index');
+        return redirect()->route('dashboard');
     }
 
     public function edit($id)
     {
         $appointment = Appointment::whereId($id)->first();
+
+        //A list to display for the selection box
         $staffs = User::all()->whereNotIn('role', 'Customer');
         $customer = User::whereId($appointment->CustomerId)->first();
+
+        //returns to view with variables the view can use to display the correct information
         return view('appointment.edit')
             ->with('appointment', $appointment)
             ->with('staffs',$staffs)
@@ -77,8 +84,9 @@ class AppointmentController extends Controller
 
     public function editPost(Request $request, $id)
     {
-        $appointment = Appointment::whereId($id)->first();
+        $appointment = Appointment::whereId($id)->first(); //grabs the first appointment with the assigned id
 
+        //Validates the input made to the form
         $request->validate([
             'Status' => 'required',
             'StaffId' => 'required',
@@ -90,6 +98,7 @@ class AppointmentController extends Controller
         $Status = new AppointmentStatus();
         $Status->setStatusById($request['Status']);
 
+        //Checks to see if changes have been made
         if($appointment->Status != $Status->getStatus()) {$appointment->Status =      $Status->getStatus(); $changes = true;}
         if($appointment->DateOf != Carbon::createFromFormat('m/d/Y', $request['DateOf'])) {$appointment->DateOf =      Carbon::createFromFormat('m/d/Y', $request['DateOf']); $changes = true;}
         if($appointment->StaffId != $request['StaffId']) {$appointment->StaffId =   $request['StaffId']; $changes = true;}

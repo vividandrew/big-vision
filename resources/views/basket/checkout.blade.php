@@ -56,6 +56,7 @@
             <button type="submit" class="h-20 w-full md:h-10 md:w-fit rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Make Card Payment</button>
 
         </form>
+        <?php $total = $total - ($order->PointsSpent * 0.1) ?>
     <h3>Total: £{{$total}}</h3>
         <?php $user = Auth::user(); ?>
         @if(

@@ -4,6 +4,7 @@ namespace App\External;
 
 class Role
 {
+    //Array containing all the possible roles a user can be in
     private $roles = [
         'Customer',
         'Warehouse',
@@ -16,6 +17,7 @@ class Role
 
     private function __GetRoleID__(string $name) : int
     {
+        //a private function to grab the select id from a string
         switch($name)
         {
             case 'Customer':

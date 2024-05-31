@@ -96,11 +96,10 @@ class CheckoutController extends Controller
         if($user == null) return redirect('/'); //checks if tehre is a logged in user
         if(
             $user->AddressLine1 == null ||
-        $user->AddressLine2 == null ||
         $user->Town == null ||
         $user->PostCode == null)
         {
-            return redirect().route('order.checkout');
+            return redirect()->route('order.checkout', $id);
         }
 
 
@@ -144,6 +143,7 @@ class CheckoutController extends Controller
             $product = Product::whereId($ol->ProductId)->first();
             $total += $ol->Quantity * $product->getPrice();
         }
+        $total = $total - ($order->PointsSpent * 0.1);
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');

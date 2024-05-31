@@ -24,6 +24,8 @@ class AccountController extends Controller
 
     public function dashboard()
     {
+
+        //Dependant on if the user is a customer or staff, redirect to the correct view
             if(Auth::user()->role != "Customer")
             {
                 return view('admin.index');
@@ -57,23 +59,26 @@ class AccountController extends Controller
             'Platform' => 'nullable',
             'Discount' => 'nullable'
         ]);
+
         $request->user()->fill($request->validated());
         return Redirect::route('profile.edit')->with('status', 'address-updated');
     }
 
     public function edit($id)
     {
-        $user = User::whereId($id)->first();
-        if($user == null) return redirect()->view('admin.index');
-        $Roles = (new Role)->GetRoles();
+        $user = User::whereId($id)->first(); //grabs edited user details
+        if($user == null) return redirect()->view('admin.index'); //if the user doesn't exist on database, return to staff dashboard
+        $Roles = (new Role)->GetRoles(); //grabs all the roles to fill the select box
 
         return view('account.edit')->with('user', $user)->with('Roles', $Roles);
     }
 
     public function editPost(Request $request, $id)
     {
-        $user = User::whereId($id)->first();
-        $loyaltyUser = Visionary::where('CustomerId', $user->id)->first();
+        $user = User::whereId($id)->first(); //grabs the user being edited
+        $loyaltyUser = Visionary::where('CustomerId', $user->id)->first(); //grabs the database value will return null if it doesn't exist
+
+        //Dependant on if the user is a loyalty member, validate the input differently
         if($loyaltyUser == null)
         {
             $request->validate([
@@ -86,9 +91,9 @@ class AccountController extends Controller
             ]);
         }
 
-        $role = new Role();
+        $role = new Role(); //creates role class to be used to assign roles accurately
 
-        $role->setRoleById($request['role']);
+        $role->setRoleById($request['role']); //sets the role based to the input
 
         //This checks if there has been a change to role before sending request to database
         if($user->role != $role->getRole())
@@ -97,18 +102,14 @@ class AccountController extends Controller
             $user->save();
         }
 
-
+        //is only checked if the user is a loyalty member
         if($loyaltyUser != null)
         {
-            //Checks if the value has changed then updates the database
-            if($loyaltyUser->LoyaltyPoints != $request['points'])
-            {
-                $loyaltyUser->LoyaltyPoints = $request['points'];
-                $loyaltyUser->save();
-            }
+            $loyaltyUser->LoyaltyPoints = $request['points'];
+            $loyaltyUser->save(); //updates and saves points to the database
         }
 
-        return redirect()->route('admin.index');
+        return redirect()->route('user.edit', $id); //refreshes the users page
     }
 
     public function destroy($id)
@@ -122,7 +123,7 @@ class AccountController extends Controller
         //This is for user deletion
         if($user->role == "Customer" && $user->id != $id){return redirect('/');}
 
-        $dUser = User::whereId($id);
+        $dUser = User::whereId($id)->first();
 
         //Failsafe if user doesn't exist
         if($dUser == null){return redirect()->route('admin.users');}
@@ -147,7 +148,7 @@ class AccountController extends Controller
         }
 
         //Delete loyalty membership
-        $loyalty = Visionary::whereUserId($dUser->id)->first();
+        $loyalty = Visionary::where('CustomerId', $dUser->id)->first();
         if($loyalty != null){$loyalty->delete();}
 
         //this is executed if the user deletes themselves
@@ -156,19 +157,21 @@ class AccountController extends Controller
             $dUser->delete();
             return redirect('/');
         }
+
+
         $dUser->delete(); //Final deletion of the user
         return redirect()->route('admin.users');
     }
     public function registerLoyalty()
     {
         $visionary = new Visionary([
-            'LoyaltyNo' => Auth::user()->name.Carbon::now(),
+            'LoyaltyNo' => Auth::user()->name.Carbon::now(), //user number is generated based on the users name and the date of today
             'LoyaltyPoints' => 0,
             'CustomerId' => Auth::user()->id,
         ]);
 
-        $visionary::create($visionary->allDb());
+        $visionary::create($visionary->allDb()); //inserts data into the database for the select user
 
-        return redirect()->route('home.index');
+        return redirect()->route('dashboard');
     }
 }

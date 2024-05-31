@@ -38,7 +38,7 @@ class ProfileController extends Controller
 
         $user = Auth::user();
 
-
+        //sets the user to the data parsed through the webform
         $user->name = $request['name'];
         $user->email = $request['email'];
         $user->AddressLine1 = $request['AddressLine1'];
@@ -49,37 +49,5 @@ class ProfileController extends Controller
 
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
-    public function personalEdit(Request $request)
-    {
-        return view('profile.editpersonal', [
-            'user' => $request->user(),
-        ]);
-    }
-
-    public function personalUpdate($request) : RedirectResponse
-    {
-        return $request;
-        return redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
     }
 }

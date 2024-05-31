@@ -4,16 +4,18 @@ namespace App\External;
 
 class AppointmentStatus
 {
+    //Array containing all the possible statuses the appointment can be in
     private $statuses = [
         'Requested',
         'Appointed',
         'Completed'
     ];
 
-    private $id;
+    private $id; //index of the array
 
     private function __GetStatusID__(string $name) : int
     {
+        //a private function to grab the select id from a string
         switch($name)
         {
             case 'Requested':

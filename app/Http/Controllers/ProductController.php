@@ -10,6 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
+        //Paginates the products into 8 products per page, which is sorted in the front end
         $products = Product::latest()->paginate(8);
 
         return view('product.index', compact('products'))->with(request()->input('page'));
@@ -17,13 +18,11 @@ class ProductController extends Controller
 
     public function create()
     {
-        //TODO::Set Authentication check
         return view('product.create');
     }
 
     public function store(Request $request)
     {
-        //TODO::Set Authentication check
         $request->validate([
            'Name' => 'required',
            'Description' => 'nullable',
@@ -49,7 +48,6 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        //TODO::Set Authentication check
         $product = Product::whereId($id)->first();
 
         return view('product.update')->with('product', $product);
@@ -57,8 +55,6 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        //TODO::Set Authentication check
-
         $request->validate([
             'Name' => 'required',
             'Description' => 'nullable',
@@ -95,6 +91,9 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::whereId($id)->first();
+
+        //before deleting the product, it checks if any previous order lines have been set to this
+        //and deletes them so no error will come up when the orderline is called
         foreach(OrderLine::all() as $ol)
         {
             if($ol->ProductId == $product->id)
