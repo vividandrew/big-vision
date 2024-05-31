@@ -9,6 +9,7 @@ class OrderStatus
         'Ordered',
         'payment-processing',
         'Completed',
+        'Delivered',
         'Refunded',
         'Cancelled',
     ];
@@ -27,10 +28,12 @@ class OrderStatus
                 return 2;
             case 'Completed':
                 return 3;
-            case 'Refunded':
+            case 'Delivered':
                 return 4;
-            case 'Cancelled':
+            case 'Refunded':
                 return 5;
+            case 'Cancelled':
+                return 6;
         }
         return -1;
     }

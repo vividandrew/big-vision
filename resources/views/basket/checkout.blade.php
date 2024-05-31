@@ -60,7 +60,6 @@
         <?php $user = Auth::user(); ?>
         @if(
             $user->AddressLine1 == null ||
-        $user->AddressLine2 == null ||
         $user->Town == null ||
         $user->PostCode == null)
             <p>you can use paypal as a method, but in order to use that you must update your address! please follow the current link to edit your profile <a class="text-blue-600 hover:text-blue-400" href="{{route('profile.edit')}}">here</a></p>

@@ -29,8 +29,9 @@
                     </div>
                 </div>
                 @endforeach
-
-                <!-- More products... -->
+            </div>
+            <div class="bg-red-200 mt-5 rounded p-5 font-bold">
+                {{$products->links()}}
             </div>
         </div>
 @endsection
